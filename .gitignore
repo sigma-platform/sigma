@@ -1,0 +1,26 @@
+### LARAVEL ###
+/bootstrap/compiled.php
+/vendor
+composer.phar
+composer.lock
+.env.*.php
+.env.php
+.DS_Store
+Thumbs.db
+.env
+
+### BOWER ###
+/public/bower_components
+
+### MAC ###
+.com.apple.timemachine.supported
+
+### Keepers ###
+!.gitkeep
+
+### NODE ###
+/node_modules
+
+### PHPSTORM ###
+.idea
+_ide_helper.php

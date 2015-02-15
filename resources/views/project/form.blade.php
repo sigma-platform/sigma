@@ -19,7 +19,9 @@
 						<div class="form-group">
 							<label class="help-block" for="description">Description</label>
 							<textarea id="description" name="description" class="form-control" cols="30" rows="5">
-								{{ (isset($project)) ? $project->description : "" }}
+								@if(isset($project))
+									{{ $project->description }}
+								@endif
 							</textarea>
 						</div>
 						<div class="form-group">
@@ -29,15 +31,53 @@
 						</div>
 						<div class="form-group">
 							<label class="help-block" for="project_group">Groupe</label>
-							<select class="form-control" name="project_group_id" id="project_group">
-								@foreach($projectGroups as $projectGroup)
-									<option value="{{ $projectGroup->id }}" {{ (isset($project) && $project->project_group_id == $projectGroup->id) ? "selected" : "" }}>{{ $projectGroup->label }}</option>
-								@endforeach
-							</select>
+							<div class="input-group">
+								<select class="form-control" name="project_group_id" id="project_group">
+									@foreach($projectGroups as $projectGroup)
+										<option value="{{ $projectGroup->id }}"
+											{{ (isset($project) && $project->project_group_id == $projectGroup->id) ? "selected" : "" }}
+											{{ (Session::has('newGroupId') && Session::get('newGroupId') == $projectGroup->id) ? "selected" : "" }}>
+											{{ $projectGroup->label }}
+										</option>
+									@endforeach
+								</select>
+								<div class="input-group-btn">
+									<button class="btn btn-default" type="button" data-toggle="modal" data-target="#projectGroupModal">
+										<span class="glyphicon glyphicon-plus"></span>
+									</button>
+								</div>
+							</div>
 						</div>
 						<button type="submit" class="btn btn-default btn-group-justified">{{ (isset($project)) ? "Mettre à jour" : "Créer" }}</button>
 					</form>
 				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="projectGroupModal" tabindex="-1" role="dialog" aria-labelledby="projectGroup" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form action="/project-group/store" method="post" enctype="multipart/form-data">
+					<input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Création d'un groupe</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="help-block" for="label">Label</label>
+							<input id="label" name="label" class="form-control" type="text"/>
+						</div>
+						<div class="form-group">
+							<label class="help-block" for="image">Image</label>
+							<input id="image" name="image" class="form-control" type="file"/>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-default">Ajouter</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

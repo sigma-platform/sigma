@@ -4,15 +4,15 @@
 		<div class="sidebar-wrapper">
 			<ul class="nav nav-sidebar">
 				<li>
-					<a href="/user">
+					<a href="/user" class="{{ Request::is('user') ? 'active' : '' }}">
 						<span class="glyphicon glyphicon-list"></span>
-						Liste des utilisateurs
+						<span class="link-name">Liste des utilisateurs</span>
 					</a>
 				</li>
 				<li>
-					<a href="/user/create">
+					<a href="/user/create" class="{{ Request::is('user/create') ? 'active' : '' }}">
 						<span class="glyphicon glyphicon-plus"></span>
-						Ajouter un utilisateur
+						<span class="link-name">Ajouter un utilisateur</span>
 					</a>
 				</li>
 			</ul>

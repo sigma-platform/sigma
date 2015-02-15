@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use Illuminate\Http\Response;
 use App\Http\Requests\UserFormRequest;
 use App\Models\Role;
 use App\Models\User;

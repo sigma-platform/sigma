@@ -2,6 +2,9 @@ body, label, .checkbox label {
   font-weight: 300;
 }
 
+a {color: #666}
+a:hover {color: #333}
+
 *:focus {
   outline: 0!important;
 }
@@ -58,6 +61,10 @@ body, label, .checkbox label {
   background: #ddd;
 }
 
+.nav.nav-sidebar li a.active {
+  background: #e5e5e5;
+}
+
 .nav.nav-sidebar li a .glyphicon {
   margin-left: 10px;
   margin-right: 25px;
@@ -78,7 +85,30 @@ body, label, .checkbox label {
 }
 
 .form-control {
+  -webkit-appearance:none;
   border-radius: 2px;
   box-shadow: none;
   border: 1px solid #ccc;
+}
+
+@media(max-width:768px) {
+  .page-with-sidebar {
+    padding-left:50px;
+  }
+
+  .page-with-sidebar .sidebar-wrapper {
+    width:50px;
+  }
+
+  .sidebar-wrapper .nav.nav-sidebar {
+    width: 50px;
+  }
+
+  .nav.nav-sidebar li a .link-name{
+    display: none;
+  }
+
+  .nav.nav-sidebar li a .glyphicon {
+    margin-left: 3px;
+  }
 }

@@ -26,6 +26,13 @@ Route::group(['middleware' => ['auth', 'is'], 'role' => 'admin'], function()
 	//Project
 	Route::get('/project', 'ProjectController@index');
 	Route::get('/project/create', 'ProjectController@create');
+	Route::post('/project/store', 'ProjectController@store');
+	Route::get('/project/edit/{id}', 'ProjectController@edit');
+	Route::post('/project/update/{id}', 'ProjectController@update');
+	Route::get('/project/destroy/{id}', 'ProjectController@destroy');
+
+	//ProjectGroup
+	Route::post('/project-group/store', 'ProjectGroupController@store');
 });
 
 Route::controllers([

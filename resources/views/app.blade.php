@@ -23,7 +23,7 @@
 	<nav class="navbar navbar-fixed-top navbar-default">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sigma-navbar-collapse">
 					<span class="sr-only">Toggle Navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -32,11 +32,13 @@
 				<a class="navbar-brand" href="/"><img src="/images/sigma.png" alt="Sigma"/></a>
 			</div>
 
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li><a href="/user">Utilisateurs</a></li>
-					<li><a href="/project">Projets</a></li>
-				</ul>
+			<div class="collapse navbar-collapse" id="sigma-navbar-collapse">
+				@if(Auth::check())
+					<ul class="nav navbar-nav navbar-left">
+						<li><a href="/user">Utilisateurs</a></li>
+						<li><a href="/project">Projets</a></li>
+					</ul>
+				@endif
 
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())

@@ -1,11 +1,10 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Http\Requests\ProjectFormRequest;
 
 use App\Models\Project;
 use App\Models\ProjectGroup;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ProjectController extends Controller {
 
@@ -32,11 +31,14 @@ class ProjectController extends Controller {
 	/**
 	 * Store a newly created resource in storage.
 	 *
+	 * @param  ProjectFormRequest  $request
 	 * @return Response
 	 */
-	public function store()
+	public function store(ProjectFormRequest $request)
 	{
-		//
+		Project::create($request->all());
+
+		return redirect('/project')->with('message', 'Le projet a correctement été ajouté.');
 	}
 
 	/**
@@ -58,18 +60,26 @@ class ProjectController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		return view('project.form')
+			->with('projectGroups', ProjectGroup::all())
+			->with('project', Project::find($id));
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
+	 * @param  ProjectFormRequest  $request
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(ProjectFormRequest $request, $id)
 	{
-		//
+		$project = Project::find($id);
+
+		$project->fill($request->all());
+		$project->save();
+
+		return redirect('/project')->with('message', 'Le projet à correctement été modifié.');
 	}
 
 	/**
@@ -80,7 +90,11 @@ class ProjectController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$project = Project::find($id);
+
+		Project::destroy($project->id);
+
+		return redirect('/project')->with('message', 'Le projet a bien été supprimé.');
 	}
 
 }

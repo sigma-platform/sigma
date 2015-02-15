@@ -7,6 +7,11 @@ use \Auth;
 
 class UserFormRequest extends FormRequest
 {
+	/**
+	 * Liste des règles de validations pour la création.
+	 *
+	 * @var array
+	 */
 	private $rules = [
 		'firstname' => 'required|max:255',
 		'lastname' => 'required|max:255',
@@ -15,6 +20,11 @@ class UserFormRequest extends FormRequest
 		'role_id' => 'required|exists:role,id'
 	];
 
+	/**
+	 * Liste des règles de validations pour la mise à jour.
+	 *
+	 * @var array
+	 */
 	private $rulesUpdate = [
 		'firstname' => 'max:255',
 		'lastname' => 'max:255',
@@ -23,6 +33,11 @@ class UserFormRequest extends FormRequest
 		'role_id' => 'exists:role,id'
 	];
 
+	/**
+	 * Retourne les règles de validations à utilisées.
+	 *
+	 * @return array
+	 */
 	public function rules()
 	{
 		if(!$this->route()->getParameter('id'))
@@ -35,6 +50,11 @@ class UserFormRequest extends FormRequest
 		}
 	}
 
+	/**
+	 * Determine si l'utilisateur est autorisé à effectuer la requête
+	 *
+	 * @return bool
+	 */
 	public function authorize()
 	{
 		if(!Auth::check())
@@ -52,6 +72,11 @@ class UserFormRequest extends FormRequest
 		return new Response('Permissions insuffisantes', 403);
 	}
 
+	/**
+	 * Valide la requête
+	 *
+	 * @return void|Response
+	 */
 	public function validate()
 	{
 		// Check si update ou store

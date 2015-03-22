@@ -17,10 +17,10 @@ Route::group(['prefix' => 'api', 'middleware' => 'token', 'namespace' => 'Rest']
 /**
  * Site Routes
  */
-Route::get('/', 'Site\HomeController@index');
-
 Route::group(['middleware' => ['token', 'auth', 'is'], 'namespace' => 'Site', 'role' => 'admin'], function()
 {
+	Route::get('/', 'HomeController@index');
+
 	// User
 	Route::get('/user', 'UserController@index');
 	Route::get('/user/create', 'UserController@create');

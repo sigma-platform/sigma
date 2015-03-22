@@ -38,7 +38,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	public function role()
 	{
-		return $this->belongsTo('Role');
+		return $this->belongsTo('App\Models\Role');
 	}
 
 	/**
@@ -48,7 +48,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	public function userProjectsRoles()
 	{
-		return $this->belongsTo('UserProjectRole');
+		return $this->belongsTo('App\Models\UserProjectRole');
 	}
 
 	/**

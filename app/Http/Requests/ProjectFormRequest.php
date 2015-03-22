@@ -73,10 +73,10 @@ class ProjectFormRequest extends FormRequest {
 	 */
 	public function validate()
 	{
-		// Check si update ou store
+		// Check if update or store
 		if(!$this->route()->getParameter('id'))
 		{
-			// Avant validation
+			// Before validate
 			$input = $this->all();
 
 			$input['status'] = ($this->segment(1) == 'api') ? 0 : 1;
@@ -89,7 +89,14 @@ class ProjectFormRequest extends FormRequest {
 		{
 			if(!Project::find($this->route()->getParameter('id')))
 			{
-				return new Response('L\'utilisateur sélectionné n\'existe pas.', 404);
+				return ($this->segment(1) == 'api') ?
+					new Response('Le projet sélectionné n\'existe pas.', 404) :
+					response()->json(
+						[
+							'success' => false,
+							'error' => 'Le projet sélectionné n\'existe pas.',
+							'payload' => []
+						], 404);
 			}
 
 			parent::validate();

@@ -1,10 +1,11 @@
 <?php namespace App\Http\Requests;
 
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 use App\Models\Project;
 use \Auth;
 
-class ProjectFormRequest extends Request {
+class ProjectFormRequest extends FormRequest {
 
 	/**
 	 * Rules used to validate the store request.
@@ -78,7 +79,7 @@ class ProjectFormRequest extends Request {
 			// Avant validation
 			$input = $this->all();
 
-			$input['status'] = ($this->ajax()) ? 0 : 1;
+			$input['status'] = ($this->segment(1) == 'api') ? 0 : 1;
 
 			$this->replace($input);
 

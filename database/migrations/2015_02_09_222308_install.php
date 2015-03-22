@@ -36,6 +36,16 @@ class Install extends Migration {
 			$table->foreign('role_id')->references('id')->on('role');
 		});
 
+		Schema::create('token', function(Blueprint $table)
+		{
+			$table->string('id', 36);
+			$table->primary('id');
+			$table->integer('user_id', false, true);
+			$table->timestamps();
+
+			$table->foreign('user_id')->references('id')->on('user');
+		});
+
 		Schema::create('password_reset', function(Blueprint $table)
 		{
 			$table->string('email')->index();
@@ -200,6 +210,7 @@ class Install extends Migration {
 		Schema::dropIfExists('project_group');
 		Schema::dropIfExists('action');
 		Schema::dropIfExists('password_reset');
+		Schema::dropIfExists('token');
 		Schema::dropIfExists('user');
 		Schema::dropIfExists('role');
 	}

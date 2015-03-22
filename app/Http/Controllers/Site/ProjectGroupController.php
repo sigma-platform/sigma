@@ -1,8 +1,7 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Site;
 
 use App\Http\Requests\ProjectGroupFormRequest;
 use App\Http\Controllers\Controller;
-
 use App\Models\ProjectGroup;
 use Illuminate\Http\Response;
 

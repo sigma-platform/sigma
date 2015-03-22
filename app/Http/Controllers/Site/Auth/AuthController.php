@@ -1,6 +1,8 @@
-<?php namespace App\Http\Controllers\Auth;
+<?php namespace App\Http\Controllers\Site\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Token;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
@@ -67,8 +69,8 @@ class AuthController extends Controller {
 		return redirect($this->loginPath())
 			->withInput($request->only('email'))
 			->withErrors([
-				 'email' => 'Les informations sont incorrectes (E-Mail / Mot de passe).',
-			 ]);
+							 'email' => 'Les informations sont incorrectes (E-Mail / Mot de passe).',
+						 ]);
 	}
 
 	/**

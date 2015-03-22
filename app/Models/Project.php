@@ -5,21 +5,21 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model {
 
 	/**
-	 * Le nom de la table utilisée par le model.
+	 * Name of the table used by the model.
 	 *
 	 * @var string
 	 */
 	protected $table = 'project';
 
 	/**
-	 * Liste des champs assignable
+	 * List of assignable fields
 	 *
 	 * @var array
 	 */
 	protected $fillable = ['name', 'description', 'slug', 'status', 'project_group_id'];
 
 	/**
-	 * Permet d'accéder à l'objet ProjectGroup dans le projet
+	 * ProjectGroup relationship
 	 *
 	 * @return ProjectGroup
 	 */

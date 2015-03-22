@@ -5,14 +5,14 @@ use Illuminate\Database\Eloquent\Model;
 class Role extends Model {
 
 	/**
-	 * Le nom de la table utilisée par le model.
+	 * Name of the table used by the model.
 	 *
 	 * @var string
 	 */
 	protected $table = 'role';
 
 	/**
-	 * Liste des niveaux d'accès globaux
+	 * Globals access levels.
 	 *
 	 * @var array
 	 */
@@ -22,7 +22,7 @@ class Role extends Model {
 	];
 
 	/**
-	 * Liste des niveaux d'accès pour les projets
+	 * Project access levels.
 	 *
 	 * @var array
 	 */

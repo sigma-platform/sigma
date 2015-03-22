@@ -33,14 +33,7 @@ class Authenticate {
 	{
 		if ($this->auth->guest())
 		{
-			if ($request->ajax())
-			{
-				return response('Non autorisé.', 401);
-			}
-			else
-			{
-				return redirect()->guest('auth/login');
-			}
+			return redirect()->guest('auth/login');
 		}
 
 		return $next($request);

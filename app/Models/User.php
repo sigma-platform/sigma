@@ -11,28 +11,28 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	use Authenticatable, CanResetPassword;
 
 	/**
-	 * Le nom de la table utilisée par le model
+	 * Name of the table used by the model.
 	 *
 	 * @var string
 	 */
 	protected $table = 'user';
 
 	/**
-	 * Liste des champs assignable
+	 * List of assignable fields
 	 *
 	 * @var array
 	 */
 	protected $fillable = ['firstname', 'lastname', 'email', 'password', 'role_id'];
 
 	/**
-	 * Liste des champs exclus des retour JSON
+	 * List of fields that are excluded from JSON returns
 	 *
 	 * @var array
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
 	/**
-	 * Permet d'accéder à l'objet Role dans utilisateur
+	 * Role relationship
 	 *
 	 * @return Role
 	 */
@@ -42,10 +42,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	}
 
 	/**
-	 * Permet de déterminer si l'utilisateur a le role passé en paramètre
+	 * Check if the user has the designated role
 	 *
-	 * @param string role
-	 *
+	 * @param string $role
 	 * @return boolean
 	 */
 	public function is($role)
@@ -53,6 +52,27 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 		return $this->role->access_level === Role::$appAccessLevels[$role];
 	}
 
+	public function createToken()
+	{
+		return Token::create(['user_id' => $this->id]);
+	}
+
+	/**
+	 * Get a user by its email
+	 *
+	 * @param string $email
+	 * @return User
+	 */
+	public static function getUserWithEmail($email)
+	{
+		return User::query()->where('email', '=', $email)->first();
+	}
+
+	/**
+	 * Generate a password
+	 *
+	 * @return string
+	 */
 	public static function generatePassword()
 	{
 		return substr(

@@ -1,41 +1,39 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+/**
+ * Rest API Routes
+ */
+Route::post('/api/auth/login', 'Rest\AuthController@login');
+Route::get('/api/auth/logout', ['middleware' => 'token', 'uses' => 'Rest\AuthController@logout']);
 
-Route::get('/', 'HomeController@index');
+/**
+ * Site Routes
+ */
+Route::get('/', 'Site\HomeController@index');
 
-Route::group(['middleware' => ['auth', 'is'], 'role' => 'admin'], function()
+Route::group(['middleware' => ['token', 'auth', 'is'], 'role' => 'admin'], function()
 {
 	// User
-	Route::get('/user', 'UserController@index');
-	Route::get('/user/create', 'UserController@create');
-	Route::post('/user/store', 'UserController@store');
-	Route::get('/user/edit/{id}', 'UserController@edit');
-	Route::post('/user/update/{id}', 'UserController@update');
-	Route::get('/user/destroy/{id}', 'UserController@destroy');
+	Route::get('/user', 'Site\UserController@index');
+	Route::get('/user/create', 'Site\UserController@create');
+	Route::post('/user/store', 'Site\UserController@store');
+	Route::get('/user/edit/{id}', 'Site\UserController@edit');
+	Route::post('/user/update/{id}', 'Site\UserController@update');
+	Route::get('/user/destroy/{id}', 'Site\UserController@destroy');
 
 	//Project
-	Route::get('/project', 'ProjectController@index');
-	Route::get('/project/create', 'ProjectController@create');
-	Route::post('/project/store', 'ProjectController@store');
-	Route::get('/project/edit/{id}', 'ProjectController@edit');
-	Route::post('/project/update/{id}', 'ProjectController@update');
-	Route::get('/project/destroy/{id}', 'ProjectController@destroy');
+	Route::get('/project', 'Site\ProjectController@index');
+	Route::get('/project/create', 'Site\ProjectController@create');
+	Route::post('/project/store', 'Site\ProjectController@store');
+	Route::get('/project/edit/{id}', 'Site\ProjectController@edit');
+	Route::post('/project/update/{id}', 'Site\ProjectController@update');
+	Route::get('/project/destroy/{id}', 'Site\ProjectController@destroy');
 
 	//ProjectGroup
-	Route::post('/project-group/store', 'ProjectGroupController@store');
+	Route::post('/project-group/store', 'Site\ProjectGroupController@store');
 });
 
 Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController'
+	'auth' => 'Site\Auth\AuthController',
+	'password' => 'Site\Auth\PasswordController'
 ]);

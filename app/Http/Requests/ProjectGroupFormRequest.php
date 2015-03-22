@@ -3,9 +3,10 @@
 use App\Models\Project;
 use App\Models\ProjectGroup;
 use \Auth;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 
-class ProjectGroupFormRequest extends Request {
+class ProjectGroupFormRequest extends FormRequest {
 
 	/**
 	 * Rules used to validate the store request.

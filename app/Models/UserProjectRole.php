@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserProjectRole extends Model {
 
 	/**
-	 * Name of the table used by the model.
+	 * The table associated with the model.
 	 *
 	 * @var string
 	 */

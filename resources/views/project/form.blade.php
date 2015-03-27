@@ -18,11 +18,7 @@
 						</div>
 						<div class="form-group">
 							<label class="help-block" for="description">Description</label>
-							<textarea id="description" name="description" class="form-control" cols="30" rows="5">
-								@if(isset($project))
-									{{ $project->description }}
-								@endif
-							</textarea>
+							<textarea id="description" name="description" class="form-control" cols="30" rows="5">@if(isset($project)){{ $project->description }}@endif</textarea>
 						</div>
 						<div class="form-group">
 							<label class="help-block" for="slug">Identifiant</label>

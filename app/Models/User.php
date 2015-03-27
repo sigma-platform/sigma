@@ -11,7 +11,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	use Authenticatable, CanResetPassword;
 
 	/**
-	 * Name of the table used by the model.
+	 * The table associated with the model.
 	 *
 	 * @var string
 	 */
@@ -75,7 +75,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	public static function getUserWithEmail($email)
 	{
-		return User::query()->where('email', '=', $email)->first();
+		return User::where('email', '=', $email)->first();
 	}
 
 	/**
@@ -86,7 +86,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	public static function generatePassword()
 	{
 		return substr(
-			str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_-=+;:,.?"),
+			str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!#$%&;"),
 			0,
 			8
 		);

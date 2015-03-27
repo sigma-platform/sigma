@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model {
 
 	/**
-	 * Le nom de la table utilisée par le model.
+	 * The table associated with the model.
 	 *
 	 * @var string
 	 */

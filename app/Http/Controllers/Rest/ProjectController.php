@@ -24,7 +24,7 @@ class ProjectController extends Controller {
 	}
 
 	/**
-	 * Return a JSON listing of the projects.
+	 * Return a JSON listing of the projects for the user.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */

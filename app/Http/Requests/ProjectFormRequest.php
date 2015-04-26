@@ -89,7 +89,7 @@ class ProjectFormRequest extends FormRequest {
 		{
 			if(!Project::find($this->route()->getParameter('id')))
 			{
-				return ($this->segment(1) == 'api') ?
+				return ($this->segment(1) != 'api') ?
 					new Response('Le projet sélectionné n\'existe pas.', 404) :
 					response()->json(
 						[

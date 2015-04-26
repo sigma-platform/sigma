@@ -3,9 +3,9 @@
 use App\Http\Requests\ProjectFormRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Role;
 use App\Models\Token;
 use App\Models\User;
-use App\Models\UserProjectRole;
 
 class ProjectController extends Controller {
 
@@ -26,9 +26,10 @@ class ProjectController extends Controller {
 	/**
 	 * Return a JSON listing of the projects for the user.
 	 *
+	 * @param string $role role filter
 	 * @return \Illuminate\Http\Response
 	 */
-	public function indexForUser()
+	public function indexForUser($role = null)
 	{
 		$user = User::find(Token::getToken($_GET['token'])->user_id);
 
@@ -41,13 +42,23 @@ class ProjectController extends Controller {
 				], 404);
 		}
 
-		$userProjectRole = UserProjectRole::where('user_id', '=', $user->id)->lists('project_id');
-		$projects = Project::with('projectGroup')->whereIn('id', $userProjectRole)->get();
+		$projects = array();
+
+		if(!$role)
+		{
+			$projects = $user->projects;
+		}
+
+		if(array_key_exists($role, Role::$projectAccessLevels))
+		{
+			$property = $role . 'Projects';
+			$projects = $user->$property;
+		}
 
 		return response()->json(
 			[
 				'success' => true,
-				'payload' => $projects->toArray(),
+				'payload' => $projects,
 			]);
 	}
 

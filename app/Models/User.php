@@ -22,7 +22,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['firstname', 'lastname', 'email', 'password', 'role_id'];
+	protected $fillable = ['firstname', 'lastname', 'email', 'password', 'status', 'role_id'];
 
 	/**
 	 * List of fields that are excluded from JSON returns
@@ -42,13 +42,43 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	}
 
 	/**
-	 * UserProjectRole relationship
+	 * Project relationship
 	 *
-	 * @return UserProjectRole
+	 * @return array
 	 */
-	public function userProjectsRoles()
+	public function projects()
 	{
-		return $this->belongsTo('App\Models\UserProjectRole');
+		return $this->belongsToMany('App\Models\Project', 'user_project_role');
+	}
+
+	/**
+	 * Project relationship
+	 *
+	 * @return array
+	 */
+	public function managerProjects()
+	{
+		return $this->belongsToMany('App\Models\Project', 'user_project_role')->wherePivot('role_id', '=', 3);
+	}
+
+	/**
+	 * Project relationship
+	 *
+	 * @return array
+	 */
+	public function devProjects()
+	{
+		return $this->belongsToMany('App\Models\Project', 'user_project_role')->wherePivot('role_id', '=', 4);
+	}
+
+	/**
+	 * Project relationship
+	 *
+	 * @return array
+	 */
+	public function clientProjects()
+	{
+		return $this->belongsToMany('App\Models\Project', 'user_project_role')->wherePivot('role_id', '=', 5);
 	}
 
 	/**
@@ -59,9 +89,32 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	public function is($role)
 	{
-		return $this->role->access_level === Role::$appAccessLevels[$role];
+		return $this->role->access_level >= Role::$appAccessLevels[$role];
 	}
 
+	/**
+	 * Check if the user has the designated role for the selected project
+	 *
+	 * @param string $role
+	 * @param int $projectId
+	 * @return boolean
+	 */
+	public function hasAccess($role, $projectId)
+	{
+		$property = $role . 'Projects';
+		$listProjectId = array_map(function($project)
+		{
+			return $project['id'];
+		}, $this->$property);
+
+		return in_array($projectId, $listProjectId);
+	}
+
+	/**
+	 * Create a new token
+	 *
+	 * @return Token
+	 */
 	public function createToken()
 	{
 		return Token::create(['user_id' => $this->id]);

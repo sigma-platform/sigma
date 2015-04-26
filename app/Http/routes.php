@@ -4,14 +4,20 @@
  * Rest API Routes
  */
 Route::post('/api/auth/login', 'Rest\AuthController@login');
-Route::get('/api/auth/logout', ['middleware' => 'token', 'uses' => 'Rest\AuthController@logout']);
 Route::group(['prefix' => 'api', 'middleware' => 'token', 'namespace' => 'Rest'], function()
 {
-	Route::get('/project/user', 'ProjectController@indexForUser');
-	//Route::get('/project', 'ProjectController@index');
-	//Route::post('/project/store', 'ProjectController@store');
+	Route::get('/auth/logout', ['middleware' => 'token', 'uses' => 'AuthController@logout']);
+
+	Route::get('/project/user/{role?}', 'ProjectController@indexForUser');
 	Route::get('/project/{id}', 'ProjectController@show');
-	//Route::put('/project/{id}', 'ProjectController@update');
+
+	Route::group(['middleware' => 'is', 'role' => 'manager'], function()
+	{
+		Route::post('/task/store', 'TaskController@store');
+		Route::put('/task/update/{id}', 'TaskController@update');
+		Route::get('/task/{projectId}', 'TaskController@indexForProject');
+		Route::get('/task/{projectId}/user', 'TaskController@indexForUser');
+	});
 });
 
 /**

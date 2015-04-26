@@ -6,7 +6,7 @@ use App\Models\User;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Response;
-use \App\Http\Requests\Request;
+use Illuminate\Http\Request;
 
 class Accessable {
 
@@ -29,7 +29,7 @@ class Accessable {
 
 	public function handle(Request $request, Closure $next)
 	{
-		$user = $this->auth->user() || User::find(Token::getToken($_GET['token']));
+		$user = ($this->auth->user()) ? $this->auth->user() : User::find(Token::getToken($_GET['token']));
 		$route = $request->route();
 
 		if($user && $route)

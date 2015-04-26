@@ -52,7 +52,7 @@ class AuthController extends Controller
 			return response()->json(
 				[
 					'success' => true,
-					'message' => 'Authentification réussie.',
+					'message' => 'Auhtentication successfull.',
 					'payload' => $user->createToken()
 				]);
 		}
@@ -60,7 +60,7 @@ class AuthController extends Controller
 		return response()->json(
 			[
 				'success' => false,
-				'message' => 'Les informations sont incorrectes (E-Mail / Mot de passe).',
+				'message' => 'The credentials do not match any user.',
 				'payload' => []
 			], 400);
 	}
@@ -77,7 +77,7 @@ class AuthController extends Controller
 		return response()->json(
 			[
 				'success' => true,
-				'message' => 'Déconnexion réussie.',
+				'message' => 'You are now logged out.',
 				'payload' => []
 			], 204);
 	}

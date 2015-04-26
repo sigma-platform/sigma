@@ -3,6 +3,7 @@
 use App\Models\Role;
 use App\Models\Token;
 use App\Models\User;
+use App\Models\Version;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Response;
@@ -29,7 +30,7 @@ class Accessable {
 
 	public function handle(Request $request, Closure $next)
 	{
-		$user = ($this->auth->user()) ? $this->auth->user() : User::find(Token::getToken($_GET['token']));
+		$user = ($this->auth->user()) ? $this->auth->user() : User::find(Token::getToken($_GET['token'])->user_id);
 		$route = $request->route();
 
 		if($user && $route)
@@ -43,17 +44,30 @@ class Accessable {
 				$projectId = null;
 				if(array_key_exists($role, Role::$projectAccessLevels))
 				{
-					$projectId = $request->route()->getParameter('projectId');
+					if($request->input('project_id'))
+					{
+						$projectId = $request->input('project_id');
+					}
+					elseif($request->input('version_id'))
+					{
+						$version = Version::find($request->input('version_id'));
+						$projectId = ($version) ? $version->project_id : null;
+					}
+					elseif($request->route()->getParameter('projectId'))
+					{
+						$projectId = $request->route()->getParameter('projectId');
+					}
 				}
 
-				if(!$user->is($role) || ($projectId && !$user->hasAccess($role, $projectId)))
+
+				if(($projectId && !$user->hasAccess($role, $projectId)) || !$user->is($role))
 				{
 					return ($request->segment(1) != 'api') ?
-						new Response('Permissions insuffisantes', 403) :
+						new Response('Forbidden', 403) :
 						response()->json(
 							[
 								'success' => false,
-								'error' => 'Permissions insuffisantes',
+								'error' => 'Forbidden',
 								'payload' => []
 							], 403);
 				}

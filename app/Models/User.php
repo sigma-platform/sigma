@@ -89,7 +89,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	public function is($role)
 	{
-		return $this->role->access_level >= Role::$appAccessLevels[$role];
+		if(array_key_exists($role, Role::$appAccessLevels))
+		{
+			return $this->role->access_level >= Role::$appAccessLevels[$role];
+		}
+
+		return true;
 	}
 
 	/**
@@ -99,13 +104,22 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 * @param int $projectId
 	 * @return boolean
 	 */
-	public function hasAccess($role, $projectId)
+	public function hasAccess($role = null, $projectId)
 	{
-		$property = $role . 'Projects';
-		$listProjectId = array_map(function($project)
+		if($role)
 		{
-			return $project['id'];
-		}, $this->$property);
+			$property = $role . 'Projects';
+		}
+		else
+		{
+			$property = 'projects';
+		}
+
+		$listProjectId = array();
+		foreach($this->$property as $project)
+		{
+			$listProjectId[] = $project->id;
+		}
 
 		return in_array($projectId, $listProjectId);
 	}

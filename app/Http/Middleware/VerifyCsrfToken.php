@@ -15,14 +15,19 @@ class VerifyCsrfToken extends BaseVerifier {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if($request->segment(1) == 'api' && (!isset($_GET['token']) || !Token::getToken($_GET['token'])))
+		if($request->segment(1) == 'api')
 		{
-			return response()->json(
-				[
-					'success' => false,
-					'payload' => array(),
-					'error' => 'Veuillez vous connecter pour poursuivre.'
-				], 401);
+			if(!isset($_GET['token']) || !Token::getToken($_GET['token']))
+			{
+				return response()->json(
+					[
+						'success' => false,
+						'payload' => array(),
+						'error' => 'Please authenticate yourself.'
+					], 401);
+			}
+
+			return $this->addCookieToResponse($request, $next($request));
 		}
 
 		return parent::handle($request, $next);

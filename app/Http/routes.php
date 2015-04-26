@@ -6,10 +6,20 @@
 Route::post('/api/auth/login', 'Rest\AuthController@login');
 Route::group(['prefix' => 'api', 'middleware' => 'token', 'namespace' => 'Rest'], function()
 {
-	Route::get('/auth/logout', ['middleware' => 'token', 'uses' => 'AuthController@logout']);
+	Route::get('/auth/logout', 'AuthController@logout');
 
+	// Project
 	Route::get('/project/user/{role?}', 'ProjectController@indexForUser');
 	Route::get('/project/{id}', 'ProjectController@show');
+
+	// Task
+	Route::get('/task/project/{projectId}', 'TaskController@indexForUserWithProject');
+	Route::get('/task/version/{versionId}', 'TaskController@indexForUserWithVersion');
+
+	Route::group(['middleware' => 'is', 'role' => 'dev'], function()
+	{
+		Route::put('/task/update/{id}/progress', 'TaskController@updateProgress');
+	});
 
 	Route::group(['middleware' => 'is', 'role' => 'manager'], function()
 	{

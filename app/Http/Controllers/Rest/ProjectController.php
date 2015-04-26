@@ -37,8 +37,9 @@ class ProjectController extends Controller {
 		{
 			return response()->json(
 				[
-					'success' => true,
-					'payload' => "L'utilisateur spécifié n'éxiste pas.",
+					'success' => false,
+					'payload' => [],
+					'error' => "The specified user doesn't exist.",
 				], 404);
 		}
 
@@ -75,7 +76,7 @@ class ProjectController extends Controller {
 		return response()->json(
 			[
 				'success' => true,
-				'message' => 'Le projet a correctement été ajouté.',
+				'message' => 'Project succesfuly created.',
 				'payload' => $project->toArray()
 			]);
 	}
@@ -95,7 +96,7 @@ class ProjectController extends Controller {
 			return response()->json(
 				[
 					'success' => false,
-					'error' => 'Le projet sélectionné n\'existe pas.',
+					'error' => "The specified project doesn't exist.",
 					'payload' => []
 				], 404);
 		}
@@ -124,7 +125,7 @@ class ProjectController extends Controller {
 		return response()->json(
 			[
 				'success' => true,
-				'message' => 'Le projet à correctement été modifié.',
+				'message' => 'Project successfully modified.',
 				'payload' => $project->toArray()
 			]);
 	}

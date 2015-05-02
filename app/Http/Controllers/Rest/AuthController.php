@@ -79,6 +79,6 @@ class AuthController extends Controller
 				'success' => true,
 				'message' => 'You are now logged out.',
 				'payload' => []
-			], 204);
+			], 200);
 	}
 }

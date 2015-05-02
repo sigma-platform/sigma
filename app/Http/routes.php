@@ -13,8 +13,8 @@ Route::group(['prefix' => 'api', 'middleware' => 'token', 'namespace' => 'Rest']
 	Route::get('/project/{id}', 'ProjectController@show');
 
 	// Task
-	Route::get('/task/project/{projectId}', 'TaskController@indexForUserWithProject');
-	Route::get('/task/version/{versionId}', 'TaskController@indexForUserWithVersion');
+	Route::get('/project/{projectId}/task', 'TaskController@indexForUserWithProject');
+	Route::get('/version/{versionId}/task', 'TaskController@indexForUserWithVersion');
 
 	Route::group(['middleware' => 'is', 'role' => 'dev'], function()
 	{
@@ -25,8 +25,6 @@ Route::group(['prefix' => 'api', 'middleware' => 'token', 'namespace' => 'Rest']
 	{
 		Route::post('/task/store', 'TaskController@store');
 		Route::put('/task/update/{id}', 'TaskController@update');
-		Route::get('/task/{projectId}', 'TaskController@indexForProject');
-		Route::get('/task/{projectId}/user', 'TaskController@indexForUser');
 	});
 });
 

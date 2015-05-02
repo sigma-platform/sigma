@@ -39,8 +39,8 @@ class Install extends Migration {
 
 		Schema::create('token', function(Blueprint $table)
 		{
-			$table->string('id', 36);
-			$table->primary('id');
+			$table->string('token', 36);
+			$table->primary('token');
 			$table->integer('user_id', false, true);
 			$table->timestamps();
 

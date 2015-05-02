@@ -13,16 +13,6 @@ class TaskController extends Controller {
 	{
 		$user = User::find(Token::getToken($_GET['token'])->user_id);
 
-		if(!$user)
-		{
-			return response()->json(
-				[
-					'success' => false,
-					'payload' => [],
-					'error' => "The specified user doesn't exist.",
-				], 404);
-		}
-
 		if(!$user->hasAccess(null, $projectId))
 		{
 			return response()->json(
@@ -30,11 +20,16 @@ class TaskController extends Controller {
 					'success' => false,
 					'payload' => [],
 					'error' => "You do not have access to this project.",
-				], 400);
+				], 403);
 		}
 
 		$versionsId = Version::where('project_id', '=', $projectId)->lists('id');
-		$tasks = Task::whereIn('version_id', $versionsId)->get()->toArray();
+		$tasks = Task::with('version')
+			->leftJoin('version', 'task.version_id', '=', 'version.id')
+			->select('task.*')
+			->whereIn('task.version_id', $versionsId)
+			->orderBy('version.date_start', 'asc')
+			->get()->toArray();
 
 		return response()->json(
 			[
@@ -49,27 +44,22 @@ class TaskController extends Controller {
 		$user = User::find(Token::getToken($_GET['token'])->user_id);
 		$vesion = Version::find($versionId);
 
-		if(!$user)
-		{
-			return response()->json(
-				[
-					'success' => false,
-					'payload' => [],
-					'error' => "The specified user doesn't exist.",
-				], 404);
-		}
-
 		if(!$user->hasAccess(null, $vesion->project_id))
 		{
 			return response()->json(
 				[
 					'success' => false,
 					'payload' => [],
-					'error' => "You do not have access to this project.",
-				], 400);
+					'error' => "You do not have access to the project related with this version.",
+				], 403);
 		}
 
-		$tasks = Task::where('version_id', '=', $versionId)->get()->toArray();
+		$tasks = Task::with('version')
+			->leftJoin('version', 'version_id', '=', 'version.id')
+			->select('task.*')
+			->where('version_id', '=', $versionId)
+			->orderBy('version.date_start', 'asc')
+			->get()->toArray();
 
 		return response()->json(
 			[

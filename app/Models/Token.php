@@ -13,6 +13,13 @@ class Token extends Model {
 	protected $table = 'token';
 
 	/**
+	 * Name of the primary key used by the model.
+	 *
+	 * @var string
+	 */
+	protected $primaryKey = 'token';
+
+	/**
 	 * List of assignable fields
 	 *
 	 * @var array
@@ -43,7 +50,7 @@ class Token extends Model {
 		parent::boot();
 
 		static::creating(function (Token $model) {
-			$model->id = (string)$model->generateNewToken();
+			$model->token = (string)$model->generateNewToken();
 		});
 	}
 

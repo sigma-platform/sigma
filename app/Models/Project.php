@@ -27,4 +27,14 @@ class Project extends Model {
 	{
 		return $this->belongsTo('App\Models\ProjectGroup');
 	}
+
+	/**
+	 * User relationship
+	 *
+	 * @return array
+	 */
+	public function users()
+	{
+		return $this->belongsToMany('App\Models\User', 'user_project_role');
+	}
 }

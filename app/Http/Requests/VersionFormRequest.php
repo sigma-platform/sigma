@@ -5,7 +5,7 @@ use Illuminate\Http\Response;
 use App\Models\Task;
 use \Auth;
 
-class TaskFormRequest extends FormRequest {
+class VersionFormRequest extends FormRequest {
 
 	/**
 	 * Rules used to validate the store request.
@@ -14,13 +14,9 @@ class TaskFormRequest extends FormRequest {
 	 */
 	private $rules = [
 		'label' => 'required|max:60',
-		'status' => 'required|in:Etude,Validation,Réalisation,Recette,Acceptée',
 		'date_start' => 'required|date',
 		'date_end' => 'required|date',
-		'estimated_time' => 'required|numeric',
-		'progress' => 'required|integer',
-		'user_id' => 'required|exists:user,id',
-		'version_id' => 'required|exists:version,id'
+		'project_id' => 'required|exists:project,id'
 	];
 
 	/**
@@ -30,13 +26,9 @@ class TaskFormRequest extends FormRequest {
 	 */
 	private $rulesUpdate = [
 		'label' => 'max:60',
-		'status' => 'in:Etude,Validation,Réalisation,Recette,Acceptée',
 		'date_start' => 'date',
 		'date_end' => 'date',
-		'estimated_time' => 'numeric',
-		'progress' => 'integer',
-		'user_id' => 'exists:user,id',
-		'version_id' => 'exists:version,id'
+		'project_id' => 'exists:project,id'
 	];
 
 	/**
@@ -76,11 +68,11 @@ class TaskFormRequest extends FormRequest {
 		if($this->route()->getParameter('id') && !Task::find($this->route()->getParameter('id')))
 		{
 			return ($this->segment(1) != 'api') ?
-				new Response('The selected task doesn\'t exist.', 404) :
+				new Response('The selected version doesn\'t exist.', 404) :
 				response()->json(
 					[
 						'success' => false,
-						'error' => 'The selected task doesn\'t exist.',
+						'error' => 'The selected version doesn\'t exist.',
 						'payload' => []
 					], 404);
 		}

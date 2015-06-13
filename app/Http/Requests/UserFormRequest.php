@@ -86,6 +86,7 @@ class UserFormRequest extends FormRequest
 			$input = $this->all();
 
 			$input['password'] = User::generatePassword();
+			$input['status'] = ($this->segment(1) == 'api') ? 0 : 1;
 
 			$this->replace($input);
 
@@ -99,7 +100,14 @@ class UserFormRequest extends FormRequest
 		{
 			if(!User::find($this->route()->getParameter('id')))
 			{
-				return new Response('L\'utilisateur sélectionné n\'existe pas.', 404);
+				return ($this->segment(1) != 'api') ?
+					new Response('The selected user doesn\'t exist.', 404) :
+					response()->json(
+						[
+							'success' => false,
+							'error' => 'The selected user doesn\'t exist.',
+							'payload' => []
+						], 404);
 			}
 
 			parent::validate();

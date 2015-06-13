@@ -76,6 +76,7 @@ class ProjectFormRequest extends FormRequest {
 		// Check if update or store
 		if(!$this->route()->getParameter('id'))
 		{
+			// Store
 			// Before validate
 			$input = $this->all();
 
@@ -87,6 +88,7 @@ class ProjectFormRequest extends FormRequest {
 		}
 		else
 		{
+			// Update
 			if(!Project::find($this->route()->getParameter('id')))
 			{
 				return ($this->segment(1) != 'api') ?

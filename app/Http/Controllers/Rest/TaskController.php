@@ -69,6 +69,28 @@ class TaskController extends Controller {
 		);
 	}
 
+	public function show($taskId)
+	{
+		$task = Task::find($taskId);
+
+		if(!$task)
+		{
+			return response()->json(
+				[
+					'success' => false,
+					'message' => 'The selected task doesn\'t exist.',
+					'payload' => []
+				]
+			);
+		}
+
+		return response()->json(
+			[
+				'success' => true,
+				'payload' => $task->toArray()
+			]);
+	}
+
 	public function store(TaskFormRequest $request)
 	{
 		$task = Task::create($request->all());
@@ -88,8 +110,8 @@ class TaskController extends Controller {
 		return response()->json(
 			[
 				'success' => true,
-				'message' => 'Task successfully updated.',
-				'payload' => Task::find($taskId)
+				'message' => 'Version successfully updated.',
+				'payload' => Task::find($taskId)->toArray()
 			]
 		);
 	}
@@ -113,5 +135,30 @@ class TaskController extends Controller {
 				'payload' => $task->toArray()
 			]
 		);
+	}
+
+	public function destroy($taskId) {
+		$task = Task::find($taskId);
+
+		if(!$task)
+		{
+			return response()->json(
+				[
+					'success' => false,
+					'message' => 'The selected task doesn\'t exist.',
+					'payload' => []
+				]
+			);
+		}
+
+		Task::destroy($taskId);
+
+		return response()->json(
+			[
+				'success' => true,
+				'message' => 'The task has been successfully deleted.',
+				'payload' => []
+			]
+		, 204);
 	}
 }

@@ -82,6 +82,16 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	}
 
 	/**
+	 * Time relationship
+	 *
+	 * @return array
+	 */
+	public function times()
+	{
+		return $this->belongsToMany('App\Models\Time', 'time_spent');
+	}
+
+	/**
 	 * Check if the user has the designated role
 	 *
 	 * @param string $role

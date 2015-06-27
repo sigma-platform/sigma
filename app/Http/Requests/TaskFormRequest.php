@@ -1,11 +1,9 @@
 <?php namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
 use App\Models\Task;
-use \Auth;
 
-class TaskFormRequest extends FormRequest {
+class TaskFormRequest extends SigmaFormRequest {
 
 	/**
 	 * Rules used to validate the store request.

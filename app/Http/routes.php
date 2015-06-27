@@ -29,23 +29,35 @@ Route::group(['prefix' => 'api', 'middleware' => 'token', 'namespace' => 'Rest']
 		// Task
 		Route::put('/task/update/{id}/progress', 'TaskController@updateProgress');
 
+		// Comment
+		Route::get('/task/{taskId}/comment', 'CommentController@indexForTask');
+		Route::resource('comment', 'CommentController', array('only' => array('show', 'store', 'update', 'destroy')));
+
+		// Todos
+		Route::get('/task/{taskId}/todo', 'TodoController@indexForTask');
+		Route::resource('todo', 'TodoController', array('only' => array('show', 'store', 'destroy')));
+
+		// Time
+		Route::get('/time', 'TimeController@indexForUser');
+		Route::resource('time', 'TimeController', array('only' => array('show', 'store', 'update', 'destroy')));
+
 		// Version
-		Route::post('/version/store', 'VersionController@store');
-		Route::put('/version/update/{id}', 'VersionController@update');
-		Route::delete('/version/destroy/{id}', 'VersionController@destroy');
+		Route::post('/version', 'VersionController@store');
+		Route::put('/version/{id}', 'VersionController@update');
+		Route::delete('/version/{id}', 'VersionController@destroy');
 	});
 
 	Route::group(['middleware' => 'is', 'role' => 'manager'], function()
 	{
 		// Task
-		Route::post('/task/store', 'TaskController@store');
-		Route::put('/task/update/{id}', 'TaskController@update');
-		Route::delete('/task/destroy/{id}', 'TaskController@destroy');
+		Route::post('/task', 'TaskController@store');
+		Route::put('/task/{id}', 'TaskController@update');
+		Route::delete('/task/{id}', 'TaskController@destroy');
 
 		// User
-		Route::post('/user/store', 'UserController@store');
-		Route::put('/user/update/{id}', 'UserController@update');
-		Route::delete('/user/destroy/{id}', 'UserController@destroy');
+		Route::post('/user', 'UserController@store');
+		Route::put('/user/{id}', 'UserController@update');
+		Route::delete('/user/{id}', 'UserController@destroy');
 	});
 });
 

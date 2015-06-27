@@ -24,7 +24,7 @@ class TaskController extends Controller {
 		}
 
 		$versionsId = Version::where('project_id', '=', $projectId)->lists('id');
-		$tasks = Task::with('version')
+		$tasks = Task::with('version', 'timeSpent')
 			->leftJoin('version', 'task.version_id', '=', 'version.id')
 			->select('task.*')
 			->whereIn('task.version_id', $versionsId)
@@ -54,7 +54,7 @@ class TaskController extends Controller {
 				], 403);
 		}
 
-		$tasks = Task::with('version')
+		$tasks = Task::with('version', 'timeSpent')
 			->leftJoin('version', 'version_id', '=', 'version.id')
 			->select('task.*')
 			->where('version_id', '=', $versionId)
@@ -71,7 +71,7 @@ class TaskController extends Controller {
 
 	public function show($taskId)
 	{
-		$task = Task::find($taskId);
+		$task = Task::with('timeSpent')->find($taskId);
 
 		if(!$task)
 		{
@@ -158,7 +158,6 @@ class TaskController extends Controller {
 				'success' => true,
 				'message' => 'The task has been successfully deleted.',
 				'payload' => []
-			]
-		, 204);
+			]);
 	}
 }

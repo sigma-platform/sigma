@@ -1,12 +1,9 @@
 <?php namespace App\Http\Requests;
 
-use App\Models\Project;
-use App\Models\ProjectGroup;
-use \Auth;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Comment;
 use Illuminate\Http\Response;
 
-class ProjectGroupFormRequest extends SigmaFormRequest {
+class CommentFormRequest extends SigmaFormRequest {
 
 	/**
 	 * Rules used to validate the store request.
@@ -14,8 +11,17 @@ class ProjectGroupFormRequest extends SigmaFormRequest {
 	 * @var array
 	 */
 	private $rules = [
-		'label' => 'required|max:255',
-		'image' => 'image'
+		'content' => 'required',
+		'task_id' => 'required|exists:task,id'
+	];
+
+	/**
+	 * Rules used to validate the store request.
+	 *
+	 * @var array
+	 */
+	private $rulesUpdate = [
+		'task_id' => 'exists:task,id'
 	];
 
 	/**
@@ -25,7 +31,14 @@ class ProjectGroupFormRequest extends SigmaFormRequest {
 	 */
 	public function rules()
 	{
-		return $this->rules;
+		if(!$this->route()->getParameter('id'))
+		{
+			return $this->rules;
+		}
+		else
+		{
+			return $this->rulesUpdate;
+		}
 	}
 
 	/**
@@ -35,14 +48,7 @@ class ProjectGroupFormRequest extends SigmaFormRequest {
 	 */
 	public function authorize()
 	{
-		if(!Auth::check())
-		{
-			return false;
-		}
-
-		$user = Auth::user();
-
-		return $user->is('admin');
+		return true;
 	}
 
 	/**
@@ -53,9 +59,9 @@ class ProjectGroupFormRequest extends SigmaFormRequest {
 	public function validate()
 	{
 		$id = $this->route()->getParameter('id');
-		if($id && !ProjectGroup::find($id))
+		if($id && !Comment::find($id))
 		{
-			return new Response('The selected group does\'nt exist.', 404);
+			return new Response('The selected comment doesn\'nt exist.', 404);
 		}
 
 		parent::validate();

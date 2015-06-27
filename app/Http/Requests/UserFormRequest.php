@@ -5,7 +5,7 @@ use Illuminate\Http\Response;
 use App\Models\User;
 use \Auth;
 
-class UserFormRequest extends FormRequest
+class UserFormRequest extends SigmaFormRequest
 {
 	/**
 	 * Liste des règles de validations pour la création.

@@ -167,6 +167,7 @@ class Install extends Migration {
 		{
 			$table->increments('id');
 			$table->decimal('time', 4, 1);
+			$table->date('date');
 			$table->timestamps();
 		});
 

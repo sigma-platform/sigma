@@ -5,7 +5,7 @@ use Illuminate\Http\Response;
 use App\Models\Project;
 use \Auth;
 
-class ProjectFormRequest extends FormRequest {
+class ProjectFormRequest extends SigmaFormRequest {
 
 	/**
 	 * Rules used to validate the store request.

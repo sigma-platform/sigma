@@ -1,12 +1,9 @@
 <?php namespace App\Http\Requests;
 
-use App\Models\Project;
-use App\Models\ProjectGroup;
-use \Auth;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Todo;
 use Illuminate\Http\Response;
 
-class ProjectGroupFormRequest extends SigmaFormRequest {
+class TodoFormRequest extends SigmaFormRequest {
 
 	/**
 	 * Rules used to validate the store request.
@@ -15,7 +12,19 @@ class ProjectGroupFormRequest extends SigmaFormRequest {
 	 */
 	private $rules = [
 		'label' => 'required|max:255',
-		'image' => 'image'
+		'done' => 'boolean|required',
+		'task_id' => 'required|exists:task,id'
+	];
+
+	/**
+	 * Rules used to validate the store request.
+	 *
+	 * @var array
+	 */
+	private $rulesUpdate = [
+		'label' => 'max:255',
+		'done' => 'boolean',
+		'task_id' => 'exists:task,id'
 	];
 
 	/**
@@ -25,7 +34,14 @@ class ProjectGroupFormRequest extends SigmaFormRequest {
 	 */
 	public function rules()
 	{
-		return $this->rules;
+		if(!$this->route()->getParameter('id'))
+		{
+			return $this->rules;
+		}
+		else
+		{
+			return $this->rulesUpdate;
+		}
 	}
 
 	/**
@@ -35,14 +51,7 @@ class ProjectGroupFormRequest extends SigmaFormRequest {
 	 */
 	public function authorize()
 	{
-		if(!Auth::check())
-		{
-			return false;
-		}
-
-		$user = Auth::user();
-
-		return $user->is('admin');
+		return true;
 	}
 
 	/**
@@ -53,9 +62,9 @@ class ProjectGroupFormRequest extends SigmaFormRequest {
 	public function validate()
 	{
 		$id = $this->route()->getParameter('id');
-		if($id && !ProjectGroup::find($id))
+		if($id && !Todo::find($id))
 		{
-			return new Response('The selected group does\'nt exist.', 404);
+			return new Response('The selected todo doesn\'nt exist.', 404);
 		}
 
 		parent::validate();

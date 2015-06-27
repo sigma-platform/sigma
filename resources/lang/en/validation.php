@@ -102,6 +102,9 @@ return [
 	|
 	*/
 
-	'attributes' => [],
+	'attributes' => [
+		'task_id' => 'task',
+		'user_id' => 'user'
+	],
 
 ];

@@ -5,7 +5,7 @@ use Illuminate\Http\Response;
 use App\Models\Task;
 use \Auth;
 
-class VersionFormRequest extends FormRequest {
+class VersionFormRequest extends SigmaFormRequest {
 
 	/**
 	 * Rules used to validate the store request.

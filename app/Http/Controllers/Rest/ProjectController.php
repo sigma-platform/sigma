@@ -73,6 +73,14 @@ class ProjectController extends Controller {
 	{
 		$project = Project::create($request->all());
 
+		if($request->has('users'))
+		{
+			foreach($request->get('users') as $user)
+			{
+				$project->users()->sync([$user['user_id'] => ['role_id' => $user['role_id']]]);
+			}
+		}
+
 		return response()->json(
 			[
 				'success' => true,
@@ -89,7 +97,7 @@ class ProjectController extends Controller {
 	 */
 	public function show($id)
 	{
-		$project = Project::with('projectGroup')->find($id);
+		$project = Project::with('projectGroup', 'users')->find($id);
 
 		if(!$project)
 		{
@@ -122,6 +130,14 @@ class ProjectController extends Controller {
 		$project->fill($request->all());
 		$project->save();
 
+		if($request->has('users'))
+		{
+			foreach($request->get('users') as $user)
+			{
+
+			}
+		}
+
 		return response()->json(
 			[
 				'success' => true,
@@ -130,4 +146,40 @@ class ProjectController extends Controller {
 			]);
 	}
 
+	public function syncUserAccess(ProjectFormRequest $request, $id)
+	{
+		$project = Project::find($id);
+
+		if(!$project)
+		{
+			return response()->json(
+				[
+					'success' => false,
+					'payload' => [],
+					'error' => 'The selected project doesn\'t exist.'
+				]
+			);
+		}
+
+		if($request->has('users'))
+		{
+			$usersArray = json_decode($request->get('users'), true);
+
+			$updated = [];
+			foreach($usersArray as $user)
+			{
+				$updated[$user['user_id']] = (array('role_id'=>$user['role_id'],));
+			}
+
+			$project->users()->sync($updated);
+		}
+
+		return response()->json(
+			[
+				'success' => true,
+				'payload' => $project->users,
+				'message' => 'Users successfully synced to the project'
+			]
+		);
+	}
 }

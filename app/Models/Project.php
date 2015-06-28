@@ -35,6 +35,6 @@ class Project extends Model {
 	 */
 	public function users()
 	{
-		return $this->belongsToMany('App\Models\User', 'user_project_role');
+		return $this->belongsToMany('App\Models\User', 'user_project_role')->withPivot('role_id');
 	}
 }

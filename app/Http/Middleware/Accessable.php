@@ -1,6 +1,7 @@
 <?php namespace App\Http\Middleware;
 
 use App\Models\Role;
+use App\Models\Task;
 use App\Models\Token;
 use App\Models\User;
 use App\Models\Version;
@@ -53,16 +54,21 @@ class Accessable {
 						$version = Version::find($request->input('version_id'));
 						$projectId = ($version) ? $version->project_id : null;
 					}
+					elseif($request->input('task_id'))
+					{
+						$task = Task::find($request->input('task_id'));
+						$version = ($task) ? Version::find($task->id) : null;
+						$projectId = ($version) ? $version->project_id : null;
+					}
 					elseif($request->route()->getParameter('projectId'))
 					{
 						$projectId = $request->route()->getParameter('projectId');
 					}
 				}
 
-
 				if(($projectId && !$user->hasAccess($role, $projectId)) || !$user->is($role))
 				{
-					return ($request->segment(1) != 'api') ?
+					return (!$request->ajax()) ?
 						new Response('Forbidden', 403) :
 						response()->json(
 							[

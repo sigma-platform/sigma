@@ -15,7 +15,7 @@ class VerifyCsrfToken extends BaseVerifier {
 	 */
 	public function handle($request, Closure $next)
 	{
-		if($request->segment(1) == 'api')
+		if($request->ajax())
 		{
 			if(!isset($_GET['token']) || !Token::getToken($_GET['token']))
 			{
@@ -26,7 +26,6 @@ class VerifyCsrfToken extends BaseVerifier {
 						'error' => 'Please authenticate yourself.'
 					], 401);
 			}
-
 			return $this->addCookieToResponse($request, $next($request));
 		}
 

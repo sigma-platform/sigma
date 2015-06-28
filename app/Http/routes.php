@@ -58,6 +58,11 @@ Route::group(['prefix' => 'api', 'middleware' => 'token', 'namespace' => 'Rest']
 		Route::post('/user', 'UserController@store');
 		Route::put('/user/{id}', 'UserController@update');
 		Route::delete('/user/{id}', 'UserController@destroy');
+
+		// Project
+		Route::post('/project', 'ProjectController@store');
+		Route::put('/project/{id}', 'ProjectController@update');
+		Route::put('/project/{id}/user', 'ProjectController@syncUserAccess');
 	});
 });
 

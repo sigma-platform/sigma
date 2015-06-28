@@ -56,6 +56,11 @@ class ProjectFormRequest extends SigmaFormRequest {
 	 */
 	public function authorize()
 	{
+		if($this->ajax())
+		{
+			return true;
+		}
+
 		if(!Auth::check())
 		{
 			return false;

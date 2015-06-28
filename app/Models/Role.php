@@ -11,14 +11,20 @@ class Role extends Model {
 	 */
 	protected $table = 'role';
 
+	const APP_USER_ROLE = 'user';
+	const APP_ADMIN_ROLE = 'admin';
+	const PROJECT_CLIENT_ROLE = 'client';
+	const PROJECT_DEV_ROLE = 'dev';
+	const PROJECT_MANAGER_ROLE = 'manager';
+
 	/**
 	 * Globals access levels.
 	 *
 	 * @var array
 	 */
 	public static $appAccessLevels = [
-		'user' => 1,
-		'admin' => 2
+		self::APP_USER_ROLE => 1,
+		self::APP_ADMIN_ROLE => 2
 	];
 
 	/**
@@ -27,8 +33,8 @@ class Role extends Model {
 	 * @var array
 	 */
 	public static $projectAccessLevels = [
-		'client' => 1,
-		'dev' => 2,
-		'manager' => 3
+		self::PROJECT_CLIENT_ROLE => 1,
+		self::PROJECT_DEV_ROLE => 2,
+		self::PROJECT_MANAGER_ROLE => 3
 	];
 }

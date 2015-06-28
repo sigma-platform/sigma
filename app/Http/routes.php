@@ -63,6 +63,12 @@ Route::group(['prefix' => 'api', 'middleware' => 'token', 'namespace' => 'Rest']
 		Route::post('/project', 'ProjectController@store');
 		Route::put('/project/{id}', 'ProjectController@update');
 		Route::put('/project/{id}/user', 'ProjectController@syncUserAccess');
+
+		// Document
+		Route::get('/project/{projectId}/document', 'DocumentController@indexForProject');
+		Route::resource('document', 'DocumentController', array('only' => array('show', 'store', 'update', 'destroy')));
+		Route::get('/project/{projectId}/document-group', 'DocumentGroupController@indexForProject');
+		Route::resource('document-group', 'DocumentGroupController', array('only' => array('show', 'store', 'update', 'destroy')));
 	});
 });
 

@@ -1,9 +1,9 @@
 <?php namespace App\Http\Requests;
 
-use App\Models\Comment;
+use App\Models\File;
 use Illuminate\Http\Response;
 
-class CommentFormRequest extends SigmaFormRequest {
+class FileFormRequest extends SigmaFormRequest {
 
 	/**
 	 * Rules used to validate the store request.
@@ -11,8 +11,8 @@ class CommentFormRequest extends SigmaFormRequest {
 	 * @var array
 	 */
 	private $rules = [
-		'content' => 'required',
-		'task_id' => 'required|exists:task,id'
+		'file' => 'required|max:60',
+		'document_id' => 'required|exists:document,id'
 	];
 
 	/**
@@ -21,7 +21,8 @@ class CommentFormRequest extends SigmaFormRequest {
 	 * @var array
 	 */
 	private $rulesUpdate = [
-		'task_id' => 'exists:task,id'
+		'file' => 'max:60',
+		'document_id' => 'exists:document,id'
 	];
 
 	/**
@@ -59,9 +60,9 @@ class CommentFormRequest extends SigmaFormRequest {
 	public function validate()
 	{
 		$id = $this->route()->getParameter('id');
-		if($id && !Comment::find($id))
+		if($id && !File::find($id))
 		{
-			return new Response('The selected comment doesn\'t exist.', 404);
+			return new Response('The selected document doesn\'t exist.', 404);
 		}
 
 		parent::validate();

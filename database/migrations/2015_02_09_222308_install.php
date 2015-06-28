@@ -103,6 +103,7 @@ class Install extends Migration {
 			$table->increments('id');
 			$table->string('label', 60);
 			$table->integer('project_id', false, true);
+			$table->softDeletes();
 
 			$table->foreign('project_id')->references('id')->on('project');
 		});
@@ -125,7 +126,6 @@ class Install extends Migration {
 			$table->string('file', 60);
 			$table->integer('document_id', false, true);
 			$table->timestamps();
-			$table->softDeletes();
 
 			$table->foreign('document_id')->references('id')->on('document');
 		});

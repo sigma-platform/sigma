@@ -34,6 +34,9 @@ class Accessable {
 		$user = ($this->auth->user()) ? $this->auth->user() : User::find(Token::getToken($_GET['token'])->user_id);
 		$route = $request->route();
 
+		if($user->role->access_level == Role::$appAccessLevels['admin'])
+			return $next($request);
+
 		if($user && $route)
 		{
 			$actions = $route->getAction();

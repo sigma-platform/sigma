@@ -73,14 +73,6 @@ class ProjectController extends Controller {
 	{
 		$project = Project::create($request->all());
 
-		if($request->has('users'))
-		{
-			foreach($request->get('users') as $user)
-			{
-				$project->users()->sync([$user['user_id'] => ['role_id' => $user['role_id']]]);
-			}
-		}
-
 		return response()->json(
 			[
 				'success' => true,
@@ -129,14 +121,6 @@ class ProjectController extends Controller {
 
 		$project->fill($request->all());
 		$project->save();
-
-		if($request->has('users'))
-		{
-			foreach($request->get('users') as $user)
-			{
-
-			}
-		}
 
 		return response()->json(
 			[

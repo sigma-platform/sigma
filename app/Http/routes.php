@@ -69,6 +69,12 @@ Route::group(['prefix' => 'api', 'middleware' => 'token', 'namespace' => 'Rest']
 		Route::resource('document', 'DocumentController', array('only' => array('show', 'store', 'update', 'destroy')));
 		Route::get('/project/{projectId}/document-group', 'DocumentGroupController@indexForProject');
 		Route::resource('document-group', 'DocumentGroupController', array('only' => array('show', 'store', 'update', 'destroy')));
+
+		// File
+		Route::get('/document/{documentId}/file', 'FileController@indexForDocument');
+		Route::post('/file', 'FileController@store');
+		Route::get('/file/{id}', 'FileController@download');
+		Route::delete('/file/{id}', 'FileController@destroy');
 	});
 });
 

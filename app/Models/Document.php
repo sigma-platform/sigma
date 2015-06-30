@@ -30,4 +30,19 @@ class Document extends Model {
 	{
 		return $this->belongsTo('App\Models\DocumentGroup');
 	}
+
+	/**
+	 * File relationship
+	 *
+	 * @return File
+	 */
+	public function files()
+	{
+		return $this->hasMany('App\Models\File');
+	}
+
+	public function getDocumentDirectory()
+	{
+		return storage_path() . '/app/files/' . $this->id . '-' . $this->label . '/';
+	}
 }

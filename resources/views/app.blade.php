@@ -5,13 +5,24 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Sigma</title>
-	<link rel="icon" type="image/png" href="/images/sigma.ico" />
 
-	<link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="/css/sigma.css" rel="stylesheet">
+	@if(App::environment('local'))
+		<link rel="icon" type="image/png" href="/images/sigma.ico" />
+		<link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/css/sigma.css" rel="stylesheet">
 
-	<!-- Fonts -->
-	<link href='/bower_components/roboto-fontface/roboto-fontface.css' rel='stylesheet' type='text/css'>
+		<!-- Fonts -->
+		<link href='/bower_components/roboto-fontface/roboto-fontface.css' rel='stylesheet' type='text/css'>
+	@endif
+
+	@if(App::environment('staging'))
+		<link rel="icon" type="image/png" href="/sigma/public/images/sigma.ico" />
+		<link href="/sigma/public/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/sigma/public/css/sigma.css" rel="stylesheet">
+
+		<!-- Fonts -->
+		<link href='/sigma/public/bower_components/roboto-fontface/roboto-fontface.css' rel='stylesheet' type='text/css'>
+	@endif
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -60,7 +71,14 @@
 	@yield('content')
 
 	<!-- Scripts -->
-	<script src="/bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	@if(App::environment('local'))
+		<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	@endif
+
+	@if(App::environment('staging'))
+		<script src="/sigma/public/bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="/sigma/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	@endif
 </body>
 </html>

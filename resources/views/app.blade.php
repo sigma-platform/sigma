@@ -41,7 +41,14 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/"><img src="/images/sigma.png" alt="Sigma"/></a>
+				<a class="navbar-brand" href="/">
+					@if(App::environment('local'))
+						<img src="/images/sigma.png" alt="Sigma"/>
+					@endif
+					@if(App::environment('staging'))
+						<img src="/sigma/public/images/sigma.png" alt="Sigma"/>
+					@endif
+				</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="sigma-navbar-collapse">

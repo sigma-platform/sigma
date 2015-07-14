@@ -34,7 +34,7 @@ class TodoFormRequest extends SigmaFormRequest {
 	 */
 	public function rules()
 	{
-		if(!$this->route()->getParameter('id'))
+		if(!$this->route()->getParameter('todo'))
 		{
 			return $this->rules;
 		}
@@ -61,10 +61,10 @@ class TodoFormRequest extends SigmaFormRequest {
 	 */
 	public function validate()
 	{
-		$id = $this->route()->getParameter('id');
+		$id = $this->route()->getParameter('todo');
 		if($id && !Todo::find($id))
 		{
-			return new Response('The selected todo doesn\'nt exist.', 404);
+			return new Response('The selected todo doesn\'t exist.', 404);
 		}
 
 		parent::validate();

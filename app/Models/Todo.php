@@ -12,6 +12,13 @@ class Todo extends Model {
 	protected $table = 'todo';
 
 	/**
+	 * Indicates if the model should be timestamped.
+	 *
+	 * @var bool
+	 */
+	public $timestamps = false;
+
+	/**
 	 * List of assignable fields
 	 *
 	 * @var array

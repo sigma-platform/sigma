@@ -31,7 +31,7 @@ class CommentFormRequest extends SigmaFormRequest {
 	 */
 	public function rules()
 	{
-		if(!$this->route()->getParameter('id'))
+		if(!$this->route()->getParameter('comment'))
 		{
 			return $this->rules;
 		}

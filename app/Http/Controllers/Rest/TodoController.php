@@ -16,13 +16,13 @@ class TodoController extends Controller {
 	 */
 	public function indexForTask($taskId)
 	{
-		if(Task::find($taskId))
+		if(!Task::find($taskId))
 		{
 			return response()->json(
 				[
 					'success' => false,
 					'payload' => [],
-					'error' => 'The selected todo does\'nt exist.'
+					'error' => 'The selected task doesn\'t exist.'
 				]
 			);
 		}
@@ -81,6 +81,27 @@ class TodoController extends Controller {
 				'success' => true,
 				'payload' => $todo->toArray()
 			]);
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  TodoFormRequest  $request
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update(TodoFormRequest $request, $id)
+	{
+		\Log::info($request->all());
+		Todo::find($id)->update($request->all());
+
+		return response()->json(
+			[
+				'success' => true,
+				'payload' => Todo::find($id)->toArray(),
+				'message' => 'Todo successfully updated.'
+			]
+		);
 	}
 
 	/**

@@ -35,7 +35,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'token', 'namespace' => 'Rest']
 
 		// Todos
 		Route::get('/task/{taskId}/todo', 'TodoController@indexForTask');
-		Route::resource('todo', 'TodoController', array('only' => array('show', 'store', 'destroy')));
+		Route::resource('todo', 'TodoController', array('only' => array('show', 'store', 'update', 'destroy')));
 
 		// Time
 		Route::get('/time', 'TimeController@indexForUser');

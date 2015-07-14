@@ -16,13 +16,13 @@ class CommentController extends Controller {
 	 */
 	public function indexForTask($taskId)
 	{
-		if(Task::find($taskId))
+		if(!Task::find($taskId))
 		{
 			return response()->json(
 				[
 					'success' => false,
 					'payload' => [],
-					'error' => 'The selected task does\'nt exist.'
+					'error' => 'The selected task doesn\'t exist.'
 				]
 			);
 		}

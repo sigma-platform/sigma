@@ -17,12 +17,20 @@ class TimeController extends Controller {
 	 */
 	public function indexForUser()
 	{
-		$user = User::find(Token::find($_GET['token'])->user_id);
+		$user = User::with('times.tasks')->find(Token::find($_GET['token'])->user_id);
+		$timesArray = $user->times->toArray();
+
+		foreach ($timesArray as $key => $time) {
+			$timesArray[$key]['tasks'] =  $timesArray[$key]['tasks'][0];
+			$timesArray[$key]['task'] = $timesArray[$key]['tasks'];
+			unset($timesArray[$key]['tasks']);
+			unset($timesArray[$key]['task']['pivot']);
+		}
 
 		return response()->json(
 			[
 				'success' => true,
-				'payload' => $user->times,
+				'payload' => $timesArray,
 			]
 		);
 	}

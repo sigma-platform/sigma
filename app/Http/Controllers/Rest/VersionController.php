@@ -71,8 +71,7 @@ class VersionController extends Controller {
 				'success' => true,
 				'message' => 'The version has been successfully deleted.',
 				'payload' => []
-			]
-			, 204);
+			]);
 	}
 }
 

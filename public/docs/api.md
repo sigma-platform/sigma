@@ -53,7 +53,6 @@ You may disconnect a user using this action.
 
         { "success" : false, "payload" : {}, "error" : "Please authenticate yourself." }
 
-
 # Group Projects
 Projects related resources of the **Sigma API**
 
@@ -137,9 +136,374 @@ Projects related resources of the **Sigma API**
                     }
             }
         }
+        
+# Group Versions
+Users related resources of the **Sigma API**
+
+## Versions Collection [/api/version?token={token}]
+
+`/api/version?token={token}`
+
++ Parameters
+    
+    + token (string) ... Token of the logged user
+    
+### Store [POST]
+
+| Name          | Type                                                             |
+|---------------|------------------------------------------------------------------|
+| label         | String                                                           |
+| date_start    | Date (yyyy-mm-dd)                                                |
+| date_end      | Date (yyyy-mm-dd)                                                |
+| project_id    | Integer                                                          |
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "message": "Version successfully added.",
+          "payload": {
+            "label": "0.5",
+            "project_id": "1",
+            "date_start": "2015-05-01",
+            "date_end": "2015-07-01",
+            "updated_at": "2015-07-16 21:23:42",
+            "created_at": "2015-07-16 21:23:42",
+            "id": 3
+          }
+        }
+
+## Version [/api/version/{id}?token={token}]
+
+`/api/version/{id}?token={token}`
+
++ Parameters
+    
+    + id (string) ... id of the version
+    + token (string) ... Token of the logged user
+    
+### Show [GET]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "payload": {
+            "id": 3,
+            "label": "0.5",
+            "description": null,
+            "date_start": "2015-05-01",
+            "date_end": "2015-07-01",
+            "project_id": 1,
+            "created_at": "2015-07-16 21:23:42",
+            "updated_at": "2015-07-16 21:23:42"
+          }
+        }
+        
++ Response 404 (application/json)
+
+        { "success": false, "payload": [], "error": "The selected version doesn't exist." }
+
+### Update [PUT]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "message": "Version successfully updated.",
+          "payload": {
+            "id": 3,
+            "label": "0.5",
+            "description": null,
+            "date_start": "2015-05-06",
+            "date_end": "2015-07-01",
+            "project_id": 1,
+            "created_at": "2015-07-16 21:23:42",
+            "updated_at": "2015-07-16 21:26:44"
+          }
+        }
+        
++ Response 404 (application/json)
+
+        { "success": false, "payload": [], "error": "The selected version doesn't exist." }
+
+### Destroy [DELETE]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "message": "The version has been successfully deleted.",
+          "payload": []
+        }
+        
++ Response 404 (application/json)
+
+        { "success": false, "payload": [], "error": "The selected version doesn't exist." }
+
+# Group Users
+Users related resources of the **Sigma API**
+
+## Users Collection For Project [/api/project/{id}/user?token={token}]
+
+`/api/project/{id}/user?token={token}`
+
++ Parameters
+    
+    + id (string) ... id of the project
+    + token (string) ... Token of the logged user
+    
+### ProjectUserList [GET]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "payload": [
+            {
+              "id": 1,
+              "firstname": "Super",
+              "lastname": "Admin",
+              "email": "admin@sigma.com",
+              "status": 0,
+              "avatar": null,
+              "role_id": 1,
+              "created_at": "2015-04-04 16:53:43",
+              "updated_at": "2015-07-16 11:49:18",
+              "deleted_at": null,
+              "pivot": {
+                "project_id": 1,
+                "user_id": 1,
+                "role_id": 3
+              }
+            }
+          ]
+        }
+        
++ Response 403 (application/json)
+
+        { "success": false, "payload": [], "error": "You do not have access to this project." }
+        
+### ProjectUserAccess [PUT]
+
+#### Required Parameters
+
+| Name          | Type                                                                      |
+|---------------|---------------------------------------------------------------------------|
+| users         | JSON - exemple : [{"user_id":3, "role_id":4}, {"user_id":8, "role_id":5}] |
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "payload": [
+            {
+              "id": 3,
+              "firstname": "Super",
+              "lastname": "Admin2",
+              "email": "admin2@sigma.com",
+              "status": 0,
+              "avatar": null,
+              "role_id": 2,
+              "created_at": "2015-04-04 16:53:43",
+              "updated_at": "2015-04-26 17:01:02",
+              "deleted_at": null,
+              "pivot": {
+                "project_id": 1,
+                "user_id": 3,
+                "role_id": 4
+              }
+            },
+            {
+              "id": 8,
+              "firstname": "Sigma",
+              "lastname": "Admin3",
+              "email": "admin3@sigma.com",
+              "status": 1,
+              "avatar": null,
+              "role_id": 2,
+              "created_at": "2015-07-16 21:43:52",
+              "updated_at": "2015-07-16 21:43:52",
+              "deleted_at": null,
+              "pivot": {
+                "project_id": 1,
+                "user_id": 8,
+                "role_id": 5
+              }
+            }
+          ],
+          "message": "Users successfully synced to the project"
+        }
+        
++ Response 404 (application/json)
+
+        { "success": false, "payload": [], "error": "Some of the selected users doesn't exists." }
+        
+## Users Collection [/api/user?token={token}]
+
+`/api/user?token={token}`
+
++ Parameters
+    
+    + token (string) ... Token of the logged user
+
+### Store [POST]
+
+#### Required Parameters
+
+| Name          | Type                                                             |
+|---------------|------------------------------------------------------------------|
+| email         | String                                                           |
+| firstname     | String                                                           |
+| lastname      | String                                                           |
+| role_id       | Integer                                                          |
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "message": "User successfully added.",
+          "payload": {
+            "email": "admin4@sigma.com",
+            "role_id": "1",
+            "firstname": "admin2",
+            "lastname": "sigma",
+            "status": 0,
+            "updated_at": "2015-07-16 20:56:05",
+            "created_at": "2015-07-16 20:56:05",
+            "id": 7
+          }
+        }
+        
+## User [/api/user/{id}?token={token}]
+
+`/api/user?token={token}`
+
++ Parameters
+    
+    + id (string) ... id of the user
+    + token (string) ... Token of the logged user
+
+### Show [GET]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "payload": {
+            "id": 7,
+            "firstname": "admin2",
+            "lastname": "sigma",
+            "email": "admin4@sigma.com",
+            "status": 0,
+            "avatar": null,
+            "role_id": 1,
+            "created_at": "2015-07-16 20:56:05",
+            "updated_at": "2015-07-16 20:56:05",
+            "deleted_at": null
+          }
+        }
+        
++ Response 404 (application/json)
+
+        { "success": false, "payload": [], "error": "The selected user doesn't exist." }
+
+### Update [PUT]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "message": "User successfully updated.",
+          "payload": {
+            "id": 7,
+            "firstname": "admin2",
+            "lastname": "sigma edit",
+            "email": "admin4@sigma.com",
+            "status": 0,
+            "avatar": null,
+            "role_id": 1,
+            "created_at": "2015-07-16 20:56:05",
+            "updated_at": "2015-07-16 21:00:11",
+            "deleted_at": null
+          }
+        }
+        
++ Response 404 (application/json)
+
+        { "success": false, "payload": [], "error": "The selected user doesn't exist." }
+
+### Destroy [POST]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "message": "The user has been successfully deleted.",
+          "payload": []
+        }
+        
++ Response 404 (application/json)
+
+        { "success": false, "payload": [], "error": "The selected user doesn't exist." }
 
 # Group Tasks
 Tasks related resources of the **Sigma API**
+
+## Tasks Collection [/api/task?token={token}]
+
+`/api/task?token={token}`
+
++ Parameters
+    
+    + token (string) ... Token of the logged user
+
+### Store [POST]
+
+#### Required Parameters
+
+| Name          | Type                                                             |
+|---------------|------------------------------------------------------------------|
+| label         | String                                                           |
+| status        | String ('Etude','Validation','Réalisation','Recette','Acceptée') |
+| date_start    | Date (yyyy-mm-dd)                                                |
+| date_end      | Date (yyyy-mm-dd)                                                |
+| progress      | Integer (0-100)                                                  |
+| estimated_time| Float                                                            |
+| user_id       | Integer                                                          |
+| version_id    | Integer                                                          |
+
+#### Optional Parameters
+
+| Name        | Type   |
+|-------------|--------|
+| description | String |
+
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "message": "Task successfully added.",
+            "payload": {
+                "description": "Description tâche 1",
+                "status": "Réalisation",
+                "date_start": "2015-04-30",
+                "date_end": "2015-05-05",
+                "estimated_time": "8.0",
+                "user_id": "1",
+                "version_id": "1",
+                "label": "Tâche 1",
+                "progress": "0",
+                "updated_at": "2015-06-14 17:48:35",
+                "created_at": "2015-06-14 17:48:35",
+                "id": 19
+            }
+        }
+
+        
++ Response 400 (application/json)
+
+        { "success": false, "payload": [], "error": "Incorrect parameters."}
 
 ## Tasks Collection For Project [/api/task/project/{projectId}?token={token}]
 
@@ -282,3 +646,492 @@ Tasks related resources of the **Sigma API**
 + Response 403 (application/json)
 
         { "success": false, "payload": [], "error": "You do not have access to the project related with this version." }
+        
+## Task [/api/task/{id}?token={token}]
+
+`/api/task/{id}?token={token}`
+
++ Parameters
+    
+    + id (string) ... Id of the task
+    + token (string) ... Token of the logged user
+
+### Show [GET]
+
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "payload": {
+                "id": 19,
+                "label": "Tâche 1",
+                "description": "Description tâche 1",
+                "status": "Réalisation",
+                "date_start": "2015-04-30",
+                "date_end": "2015-05-05",
+                "estimated_time": "8.0",
+                "progress": 0,
+                "user_id": 1,
+                "version_id": 1,
+                "created_at": "2015-06-14 17:48:35",
+                "updated_at": "2015-06-14 17:48:35"
+            }
+        }
+
+        
++ Response 404 (application/json)
+
+        { "success": false, "payload": [], "error": "The selected task doesn't exist."}
+        
+### Update [PUT]
+
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "message": "Version successfully updated.",
+            "payload": {
+                "id": 19,
+                "label": "Tâche 1",
+                "description": "Description tâche 1",
+                "status": "Réalisation",
+                "date_start": "2015-04-30",
+                "date_end": "2015-05-05",
+                "estimated_time": "8.0",
+                "progress": 0,
+                "user_id": 1,
+                "version_id": 1,
+                "created_at": "2015-06-14 17:48:35",
+                "updated_at": "2015-06-14 17:48:35"
+            }
+        }
+
+        
++ Response 404 (application/json)
+
+        { "success": false, "payload": [], "error": "The selected task doesn't exist."}
+        
+### Destroy [DELETE]
+
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "message": "The task has been successfully deleted.",
+            "payload": []
+        }
+
+        
++ Response 404 (application/json)
+
+        { "success": false, "payload": [], "error": "The selected task doesn't exist."}
+
+# Group Comments
+Comments related resources of the **Sigma API**
+
+## Comments Collection For Task [/api/task/{taskId}/comment?token={token}]
+
+`/api/task/{taskId}/comment?token={token}`
+
++ Parameters
+    
+    + taskId (string) ... Id of the task
+    + token (string) ... Token of the logged user
+
+### TaskCommentList [GET]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "payload": [
+            {
+              "id": 1,
+              "content": "First comment",
+              "created_at": "2015-07-14 22:12:45",
+              "updated_at": "2015-07-14 22:12:45",
+              "task_id": 1
+            },
+            {
+              "id": 2,
+              "content": "Second comment",
+              "created_at": "2015-07-14 22:15:36",
+              "updated_at": "2015-07-14 22:15:36",
+              "task_id": 1
+            }
+          ]
+        }
+    
+## Comments Collection [/api/comment?token={token}]
+
+`/api/comment?token={token}`
+
++ Parameters
+    
+    + token (string) ... Token of the logged user
+
+### Store [POST]
+
+#### Required Parameters
+
+| Name          | Type                                                             |
+|---------------|------------------------------------------------------------------|
+| content       | String                                                           |
+| task_id       | Integer                                                          |
+
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "payload": {
+                "content": "First comment",
+                "task_id": "1",
+                "updated_at": "2015-07-14 22:12:45",
+                "created_at": "2015-07-14 22:12:45",
+                "id": 1
+            }
+        }
+
+        
++ Response 400 (application/json)
+
+        { "success": false, "payload": [], "error": "Incorrect parameters."}
+
+## Comment [/api/comment/{id}?token={token}]
+
+`/api/comment/{id}?token={token}`
+
+### Show [GET]
+
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "payload": {
+                "id": 1,
+                "content": "First comment",
+                "created_at": "2015-07-14 22:12:45",
+                "updated_at": "2015-07-14 22:12:45",
+                "task_id": 1
+            }
+        }
+
+        
++ Response 404 (application/json)
+
+        { "success": false, "payload": [], "error": "The selected comment doesn't exist."}
+
+### Update [PUT]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "payload": {
+            "id": 1,
+            "content": "First comment edit",
+            "created_at": "2015-07-14 22:12:45",
+            "updated_at": "2015-07-14 22:20:53",
+            "task_id": 1
+          },
+          "message": "Comment successfully updated."
+        }
+
+        
++ Response 404 (application/json)
+
+        { "success": false, "payload": [], "error": "The selected comment doesn't exist."}
+
+### Destroy [DELETE]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "message": "The comment has been successfully deleted.",
+          "payload": []
+        }
+
+        
++ Response 404 (application/json)
+
+        { "success": false, "payload": [], "error": "The selected comment doesn't exist."}
+        
+# Group Todos
+Todos related resources of the **Sigma API**
+
+## Todos Collection For Task [/api/task/{taskId}/todo?token={token}]
+
+`/api/task/{taskId}/todo?token={token}`
+
++ Parameters
+    
+    + taskId (string) ... Id of the task
+    + token (string) ... Token of the logged user
+
+### TaskTodoList [GET]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "payload": [
+            {
+              "id": 1,
+              "label": "First todo",
+              "done": 0,
+              "task_id": 1
+            },
+            {
+              "id": 2,
+              "label": "Second todo",
+              "done": 0,
+              "task_id": 1
+            }
+          ]
+        }
+    
+## Todos Collection [/api/todo?token={token}]
+
+`/api/todo?token={token}`
+
++ Parameters
+    
+    + token (string) ... Token of the logged user
+
+### Store [POST]
+
+#### Required Parameters
+
+| Name          | Type                                                             |
+|---------------|------------------------------------------------------------------|
+| label         | String                                                           |
+| done          | Boolean                                                          |
+| task_id       | Integer                                                          |
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "payload": {
+            "label": "First todo",
+            "task_id": "1",
+            "done": "0",
+            "id": 1
+          }
+        }
+
+        
++ Response 400 (application/json)
+
+        { "success": false, "payload": [], "error": "Incorrect parameters."}
+
+## Todo [/api/todo/{id}?token={token}]
+
+`/api/todo/{id}?token={token}`
+
+### Show [GET]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "payload": {
+            "id": 1,
+            "label": "First todo",
+            "done": 0,
+            "task_id": 1
+          }
+        }
+
+        
++ Response 404 (application/json)
+
+        { "success": false, "payload": [], "error": "The selected todo doesn't exist."}
+
+### Update [PUT]
+
++ Response 200 (application/json)
+
+        {
+            "success": true,
+            "payload": {
+                "id": 1,
+                "label": "First todo",
+                "done": 1,
+                "task_id": 1
+            },
+            "message": "Todo successfully updated."
+        }
+
+        
++ Response 404 (application/json)
+
+        { "success": false, "payload": [], "error": "The selected todo doesn't exist."}
+
+### Destroy [DELETE]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "message": "The todo has been successfully deleted.",
+          "payload": []
+        }
+
+        
++ Response 404 (application/json)
+
+        { "success": false, "payload": [], "error": "The selected comment doesn't exist."}
+        
+# Group Times
+Times related resources of the **Sigma API**
+
+## Times Collection [/api/time?token={token}]
+
+`/api/time?token={token}`
+
++ Parameters
+    
+    + token (string) ... Token of the logged user
+    
+### UserTimeList [GET]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "payload": [
+            {
+              "id": 4,
+              "time": "2.0",
+              "date": "2015-05-30",
+              "created_at": "2015-06-27 17:41:47",
+              "updated_at": "2015-06-27 17:41:47",
+              "pivot": {
+                "user_id": 1,
+                "time_id": 4
+              },
+              "task": {
+                "id": 3,
+                "label": "Gestion des taches",
+                "description": "Gestion des taches",
+                "status": "Réalisation",
+                "date_start": "2015-04-30",
+                "date_end": "2015-05-05",
+                "estimated_time": "4.0",
+                "progress": 20,
+                "user_id": 1,
+                "version_id": 2,
+                "created_at": "2015-04-26 18:30:47",
+                "updated_at": "2015-04-26 19:14:48"
+              }
+            },
+            {
+              "id": 5,
+              "time": "2.0",
+              "date": "2015-05-30",
+              "created_at": "2015-06-27 17:45:42",
+              "updated_at": "2015-06-27 17:45:42",
+              "pivot": {
+                "user_id": 1,
+                "time_id": 5
+              },
+              "task": {
+                "id": 3,
+                "label": "Gestion des taches",
+                "description": "Gestion des taches",
+                "status": "Réalisation",
+                "date_start": "2015-04-30",
+                "date_end": "2015-05-05",
+                "estimated_time": "4.0",
+                "progress": 20,
+                "user_id": 1,
+                "version_id": 2,
+                "created_at": "2015-04-26 18:30:47",
+                "updated_at": "2015-04-26 19:14:48"
+              }
+            }
+          ]
+        }
+        
+### Store [POST]
+
++ Response 200 (application/json)
+        
+        {
+          "success": true,
+          "payload": {
+            "time": "2",
+            "date": "2015-05-24",
+            "updated_at": "2015-07-15 20:17:32",
+            "created_at": "2015-07-15 20:17:32",
+            "id": 6
+          },
+          "message": "Time spent successfully added."
+        }
+
+## Time [/api/time/{id}?token={token}]
+
+`/api/time/{id}?token={token}`
+
++ Parameters
+    
+    + id (string) ... Id of the time
+    + token (string) ... Token of the logged user
+
+### Show [GET]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "payload": {
+            "id": 6,
+            "time": "2.0",
+            "date": "2015-05-24",
+            "created_at": "2015-07-15 20:17:32",
+            "updated_at": "2015-07-15 20:17:32"
+          }
+        }
+
+        
++ Response 404 (application/json)
+
+        { "success": false, "payload": [], "error": "The selected time doesn't exist."}
+
+### Update [PUT]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "payload": {
+            "id": 6,
+            "time": "4.0",
+            "date": "2015-05-24",
+            "created_at": "2015-07-15 20:17:32",
+            "updated_at": "2015-07-15 20:19:47"
+          },
+          "message": "Time spent on the task successfully updated."
+        }
+
+        
++ Response 404 (application/json)
+
+        { "success": false, "payload": [], "error": "The selected time doesn't exist."}
+
+### Destroy [DELETE]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "message": "The time spent has been successfully deleted.",
+          "payload": []
+        }
+
+        
++ Response 404 (application/json)
+
+        { "success": false, "payload": [], "error": "The selected time doesn't exist."}

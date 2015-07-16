@@ -66,7 +66,7 @@ class UserController extends Controller {
 		return response()->json(
 			[
 				'success' => true,
-				'message' => 'Version successfully updated.',
+				'message' => 'User successfully updated.',
 				'payload' => User::find($userId)->toArray()
 			]
 		);

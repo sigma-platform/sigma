@@ -152,7 +152,18 @@ class ProjectController extends Controller {
 			$updated = [];
 			foreach($usersArray as $user)
 			{
-				$updated[$user['user_id']] = (array('role_id'=>$user['role_id'],));
+				if(!User::find($user['user_id']))
+				{
+					return response()->json(
+						[
+							'success' => false,
+							'payload' => [],
+							'error' => 'Some of the selected users doesn\'t exists.'
+						]
+					);
+				}
+
+				$updated[$user['user_id']] = (array('role_id'=>$user['role_id']));
 			}
 
 			$project->users()->sync($updated);

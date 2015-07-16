@@ -93,8 +93,7 @@ class UserController extends Controller {
 				'success' => true,
 				'message' => 'The user has been successfully deleted.',
 				'payload' => []
-			]
-			, 204);
+			]);
 	}
 }
 

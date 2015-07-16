@@ -57,6 +57,11 @@ class UserFormRequest extends SigmaFormRequest
 	 */
 	public function authorize()
 	{
+		if($this->segment(1) == 'api')
+		{
+			return true;
+		}
+
 		if(!Auth::check())
 		{
 			return false;

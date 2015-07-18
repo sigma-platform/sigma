@@ -16,5 +16,15 @@ class Comment extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['content', 'task_id'];
+	protected $fillable = ['content', 'task_id', 'user_id'];
+
+	/**
+	 * User relationship
+	 *
+	 * @return User
+	 */
+	public function user()
+	{
+		return $this->belongsTo('App\Models\User');
+	}
 }

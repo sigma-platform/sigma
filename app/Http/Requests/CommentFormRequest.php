@@ -12,7 +12,8 @@ class CommentFormRequest extends SigmaFormRequest {
 	 */
 	private $rules = [
 		'content' => 'required',
-		'task_id' => 'required|exists:task,id'
+		'task_id' => 'required|exists:task,id',
+		'user_id' => 'required|exists:user,id'
 	];
 
 	/**
@@ -21,7 +22,8 @@ class CommentFormRequest extends SigmaFormRequest {
 	 * @var array
 	 */
 	private $rulesUpdate = [
-		'task_id' => 'exists:task,id'
+		'task_id' => 'exists:task,id',
+		'user_id' => 'exists:user,id'
 	];
 
 	/**

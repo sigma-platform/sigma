@@ -200,8 +200,10 @@ class Install extends Migration {
 			$table->text('content');
 			$table->timestamps();
 			$table->integer('task_id', false, true);
+			$table->integer('user_id', false, true);
 
 			$table->foreign('task_id')->references('id')->on('task');
+			$table->foreign('user_id')->references('id')->on('user');
 		});
 	}
 

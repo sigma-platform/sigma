@@ -27,7 +27,10 @@ class CommentController extends Controller {
 			);
 		}
 
-		$comments = Comment::where('task_id', '=', $taskId)->get()->toArray();
+		$comments = Comment::with(array('user' => function($query)
+		{
+			$query->select('id', 'firstname', 'lastname');
+		}))->where('task_id', '=', $taskId)->get()->toArray();
 
 		return response()->json(
 			[
@@ -50,7 +53,10 @@ class CommentController extends Controller {
 		return response()->json(
 			[
 				'success' => true,
-				'payload' => $comment->toArray(),
+				'payload' => Comment::with(array('user' => function($query)
+				{
+					$query->select('id', 'firstname', 'lastname');
+				}))->find($comment->id)->toArray(),
 			]
 		);
 	}
@@ -79,7 +85,10 @@ class CommentController extends Controller {
 		return response()->json(
 			[
 				'success' => true,
-				'payload' => Comment::find($id)->toArray()
+				'payload' => Comment::with(array('user' => function($query)
+				{
+					$query->select('id', 'firstname', 'lastname');
+				}))->find($id)->toArray()
 			]);
 	}
 
@@ -97,7 +106,10 @@ class CommentController extends Controller {
 		return response()->json(
 			[
 				'success' => true,
-				'payload' => Comment::find($id)->toArray(),
+				'payload' => Comment::with(array('user' => function($query)
+				{
+					$query->select('id', 'firstname', 'lastname');
+				}))->find($id)->toArray(),
 				'message' => 'Comment successfully updated.'
 			]
 		);

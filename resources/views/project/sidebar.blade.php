@@ -10,12 +10,6 @@
 					</a>
 				</li>
 				<li>
-					<a href="/project/waiting" class="{{ Request::is('project/waiting') ? 'active' : '' }}">
-						<span class="glyphicon glyphicon-inbox"></span>
-						<span class="link-name">Requests list</span>
-					</a>
-				</li>
-				<li>
 					<a href="/project/create" class="{{ Request::is('project/create') ? 'active' : '' }}">
 						<span class="glyphicon glyphicon-plus"></span>
 						<span class="link-name">Add project</span>

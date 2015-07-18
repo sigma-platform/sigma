@@ -1,9 +1,11 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use DB;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Task extends Model {
+
+	use SoftDeletes;
 
 	/**
 	 * The table associated with the model.

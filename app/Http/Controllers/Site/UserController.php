@@ -15,7 +15,7 @@ class UserController extends Controller {
 	 */
 	public function index()
 	{
-		return view('user.index')->with('users', User::with('role')->get());
+		return view('user.index')->with('users', User::with('role')->where('status', '=', 1)->get());
 	}
 
 	/**

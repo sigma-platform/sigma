@@ -84,6 +84,10 @@ Route::group(['prefix' => 'api', 'middleware' => 'token', 'namespace' => 'Rest']
 Route::group(['middleware' => ['token', 'auth', 'is'], 'namespace' => 'Site', 'role' => 'admin'], function()
 {
 	Route::get('/', 'HomeController@index');
+	Route::get('/accept-user/{id}', 'HomeController@acceptUser');
+	Route::get('/refuse-user/{id}', 'HomeController@acceptUser');
+	Route::get('/accept-project/{id}', 'HomeController@acceptProject');
+	Route::get('/refuse-project/{id}', 'HomeController@refuseProject');
 
 	// User
 	Route::get('/user', 'UserController@index');

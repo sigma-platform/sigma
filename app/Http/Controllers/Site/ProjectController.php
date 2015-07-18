@@ -16,7 +16,7 @@ class ProjectController extends Controller {
 	 */
 	public function index()
 	{
-		return view('project.index')->with('projects', Project::with('projectGroup')->get());
+		return view('project.index')->with('projects', Project::with('projectGroup')->where('status', '=', 1)->get());
 	}
 
 	/**

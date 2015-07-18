@@ -69,6 +69,7 @@ class Install extends Migration {
 			$table->increments('id');
 			$table->string('label', 60);
 			$table->string('image', 60)->nullable();
+			$table->softDeletes();
 		});
 
 		Schema::create('project', function(Blueprint $table)

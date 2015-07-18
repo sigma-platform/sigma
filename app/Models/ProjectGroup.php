@@ -2,8 +2,11 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProjectGroup extends Model {
+
+	use SoftDeletes;
 
 	/**
 	 * The table associated with the model.

@@ -747,17 +747,29 @@ Comments related resources of the **Sigma API**
           "payload": [
             {
               "id": 1,
-              "content": "First comment",
+              "content": "First comment edit",
               "created_at": "2015-07-14 22:12:45",
-              "updated_at": "2015-07-14 22:12:45",
-              "task_id": 1
+              "updated_at": "2015-07-14 22:20:53",
+              "task_id": 1,
+              "user_id": 1,
+              "user": {
+                "id": 1,
+                "firstname": "Super",
+                "lastname": "Admin"
+              }
             },
             {
               "id": 2,
-              "content": "Second comment",
-              "created_at": "2015-07-14 22:15:36",
-              "updated_at": "2015-07-14 22:15:36",
-              "task_id": 1
+              "content": "gribouiboui",
+              "created_at": "2015-07-17 15:49:12",
+              "updated_at": "2015-07-17 15:49:12",
+              "task_id": 1,
+              "user_id": 1,
+              "user": {
+                "id": 1,
+                "firstname": "Super",
+                "lastname": "Admin"
+              }
             }
           ]
         }

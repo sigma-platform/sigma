@@ -790,6 +790,7 @@ Comments related resources of the **Sigma API**
 |---------------|------------------------------------------------------------------|
 | content       | String                                                           |
 | task_id       | Integer                                                          |
+| user_id       | Integer                                                          |
 
 + Response 200 (application/json)
 
@@ -798,6 +799,7 @@ Comments related resources of the **Sigma API**
             "payload": {
                 "content": "First comment",
                 "task_id": "1",
+                "user_id": "1",
                 "updated_at": "2015-07-14 22:12:45",
                 "created_at": "2015-07-14 22:12:45",
                 "id": 1
@@ -825,6 +827,7 @@ Comments related resources of the **Sigma API**
                 "created_at": "2015-07-14 22:12:45",
                 "updated_at": "2015-07-14 22:12:45",
                 "task_id": 1
+                "user_id": 1
             }
         }
 
@@ -845,6 +848,7 @@ Comments related resources of the **Sigma API**
             "created_at": "2015-07-14 22:12:45",
             "updated_at": "2015-07-14 22:20:53",
             "task_id": 1
+            "user_id": 1
           },
           "message": "Comment successfully updated."
         }

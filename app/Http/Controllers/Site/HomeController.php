@@ -23,7 +23,7 @@ class HomeController extends Controller {
 	{
 		return view('home')
 			->with('users', User::with('role')->where('status', '=', 0)->get())
-			->with('projects', Project::with('projectGroup')->where('status', '=', 0)->get());
+			->with('projects', Project::with('projectGroup', 'users')->where('status', '=', 0)->get());
 	}
 
 	public function acceptUser($id)

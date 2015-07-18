@@ -96,14 +96,22 @@
 														<h4 class="modal-title" id="myModalLabel">Project</h4>
 													</div>
 													<div class="modal-body">
-														<label for="">Name</label>
+														<label>Name</label>
 														<div class="well well-sm">{{ $project->name }}</div>
-														<label for="">Description</label>
+														<label>Description</label>
 														<div class="well well-sm">{{ $project->description }}</div>
-														<label for="">Group</label>
+														<label>Group</label>
 														<div class="well well-sm">{{ $project->projectGroup->label }}</div>
-														<label for="">Created the</label>
+														<label>Created the</label>
 														<div class="well well-sm">{{ date('d/m/Y', strtotime($project->created_at)) }}</div>
+														@if(count($project->users) > 0)
+															<label>Users</label>
+															<div class="well well-sm">
+																@foreach($project->users as $user)
+																	<span class="label label-default">{{ $user->firstname }} {{ $user->lastname }}</span>
+																@endforeach
+															</div>
+														@endif
 													</div>
 												</div>
 											</div>

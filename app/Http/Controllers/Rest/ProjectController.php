@@ -188,4 +188,35 @@ class ProjectController extends Controller {
 			]
 		);
 	}
+
+	/**
+	 * Delete the specified project in storage.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy($id)
+	{
+		$project = Project::find($id);
+
+		if(!$project)
+		{
+			return response()->json(
+				[
+					'success' => false,
+					'payload' => [],
+					'error' => 'The selected project doesn\'t exist.'
+				]
+			);
+		}
+
+		Project::destroy($id);
+
+		return response()->json(
+			[
+				'success' => true,
+				'message' => 'Project successfully deleted.',
+				'payload' => []
+			]);
+	}
 }

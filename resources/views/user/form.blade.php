@@ -13,16 +13,16 @@
 					<form action="{{ (isset($user)) ? "/user/update/$user->id" : "/user/store" }}" method="post">
 						<input name="_token" type="hidden" value="{{ csrf_token() }}"/>
 						<div class="form-group">
-							<label class="help-block" for="email">Adresse E-Mail</label>
+							<label class="help-block" for="email">E-Mail</label>
 							<input id="email" name="email" class="form-control" type="text" value="{{ (isset($user)) ? $user->email : "" }}"/>
 						</div>
 						<div class="form-group">
-							<label class="help-block" for="lastname">Nom</label>
-							<input id="lastname" name="lastname" class="form-control" type="text" value="{{ (isset($user)) ? $user->lastname : "" }}"/>
+							<label class="help-block" for="firstname">Firstname</label>
+							<input id="firstname" name="firstname" class="form-control" type="text" value="{{ (isset($user)) ? $user->firstname : "" }}"/>
 						</div>
 						<div class="form-group">
-							<label class="help-block" for="firstname">Prénom</label>
-							<input id="firstname" name="firstname" class="form-control" type="text" value="{{ (isset($user)) ? $user->firstname : "" }}"/>
+							<label class="help-block" for="lastname">Lastname</label>
+							<input id="lastname" name="lastname" class="form-control" type="text" value="{{ (isset($user)) ? $user->lastname : "" }}"/>
 						</div>
 						<div class="form-group">
 							<label class="help-block" for="role">Role</label>

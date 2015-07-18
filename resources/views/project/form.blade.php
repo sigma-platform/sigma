@@ -13,7 +13,7 @@
 					<form action="{{ (isset($project)) ? "/project/update/$project->id" : "/project/store" }}" method="post">
 						<input name="_token" type="hidden" value="{{ csrf_token() }}"/>
 						<div class="form-group">
-							<label class="help-block" for="name">Nom</label>
+							<label class="help-block" for="name">Lastname</label>
 							<input id="name" name="name" class="form-control" type="text" value="{{ (isset($project)) ? $project->name : "" }}"/>
 						</div>
 						<div class="form-group">
@@ -21,12 +21,12 @@
 							<textarea id="description" name="description" class="form-control" cols="30" rows="5">@if(isset($project)){{ $project->description }}@endif</textarea>
 						</div>
 						<div class="form-group">
-							<label class="help-block" for="slug">Identifiant</label>
+							<label class="help-block" for="slug">Slug</label>
 							<input id="slug" name="slug" class="form-control" type="text" value="{{ (isset($project)) ? $project->slug : "" }}"/>
 							<p class="help-block">Attention ce champs doit contenir uniquement des caractères alphanumérique ainsi que des tirets.</p>
 						</div>
 						<div class="form-group">
-							<label class="help-block" for="project_group">Groupe</label>
+							<label class="help-block" for="project_group">Group</label>
 							<div class="input-group">
 								<select class="form-control" name="project_group_id" id="project_group">
 									@foreach($projectGroups as $projectGroup)
@@ -58,7 +58,7 @@
 					<input name="_token" type="hidden" value="{{ csrf_token() }}"/>
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title" id="myModalLabel">Création d'un groupe</h4>
+						<h4 class="modal-title" id="myModalLabel">Group creation</h4>
 					</div>
 					<div class="modal-body">
 						<div class="form-group">

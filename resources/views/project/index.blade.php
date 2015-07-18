@@ -24,7 +24,7 @@
 							</div>
 
 							<div class="panel-footer">
-								Depuis le : {{ date('d/m/Y', strtotime($project->created_at)) }}
+								Since : {{ date('d/m/Y', strtotime($project->created_at)) }}
 								<span class="pull-right">
 									<a href="/project/edit/{{ $project->id }}"><span class="glyphicon glyphicon-pencil"></span></a>
 									<a href="/project/destroy/{{ $project->id }}"><span class="glyphicon glyphicon-remove"></span></a>

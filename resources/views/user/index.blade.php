@@ -14,12 +14,12 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th>Nom</th>
+							<th>Name</th>
 							<th>E-Mail</th>
 							<th>Role</th>
-							<th>Depuis le</th>
-							<th>Editer</th>
-							<th>Supprimer</th>
+							<th>Since</th>
+							<th>Edit</th>
+							<th>Delete</th>
 						</tr>
 					</thead>
 					<tbody>

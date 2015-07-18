@@ -38,19 +38,19 @@
 			<div class="collapse navbar-collapse" id="sigma-navbar-collapse">
 				@if(Auth::check())
 					<ul class="nav navbar-nav navbar-left">
-						<li><a href="/user">Utilisateurs</a></li>
-						<li><a href="/project">Projets</a></li>
+						<li><a href="/user">Users</a></li>
+						<li><a href="/project">Projects</a></li>
 					</ul>
 				@endif
 
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())
-						<li><a href="/auth/login">Connexion</a></li>
+						<li><a href="/auth/login">Log In</a></li>
 					@else
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->firstname }} {{ Auth::user()->lastname }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a href="/auth/logout">Déconnexion</a></li>
+								<li><a href="/auth/logout">Log Out</a></li>
 							</ul>
 						</li>
 					@endif

@@ -6,13 +6,13 @@
 				<li>
 					<a href="/user" class="{{ Request::is('user') ? 'active' : '' }}">
 						<span class="glyphicon glyphicon-list"></span>
-						<span class="link-name">Liste des utilisateurs</span>
+						<span class="link-name">Users list</span>
 					</a>
 				</li>
 				<li>
 					<a href="/user/create" class="{{ Request::is('user/create') ? 'active' : '' }}">
 						<span class="glyphicon glyphicon-plus"></span>
-						<span class="link-name">Ajouter un utilisateur</span>
+						<span class="link-name">Add user</span>
 					</a>
 				</li>
 			</ul>

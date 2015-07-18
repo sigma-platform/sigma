@@ -138,7 +138,7 @@ Projects related resources of the **Sigma API**
         }
         
 # Group Versions
-Users related resources of the **Sigma API**
+Versions related resources of the **Sigma API**
 
 ## Versions Collection [/api/version?token={token}]
 
@@ -433,7 +433,7 @@ Users related resources of the **Sigma API**
 
         { "success": false, "payload": [], "error": "The selected user doesn't exist." }
 
-### Destroy [POST]
+### Destroy [DELETE]
 
 + Response 200 (application/json)
 

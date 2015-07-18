@@ -879,7 +879,19 @@ a.list-group-item.heading:hover {
     </span>}
   ]
 </span>}
-</code></pre></li></ul></section><section id="times-times-collection-post" class="panel panel-success"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Store</span></div><div style="float:left"><a href="#times-times-collection-post" class="btn btn-xs btn-success">POST</a></div><div style="overflow:hidden"><code>/api/time?token={token}</code></div></div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>token</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<p>Token of the logged user</p>
+</code></pre></li></ul></section><section id="times-times-collection-post" class="panel panel-success"><div class="panel-heading"><div style="float:right"><span style="text-transform: lowercase">Store</span></div><div style="float:left"><a href="#times-times-collection-post" class="btn btn-xs btn-success">POST</a></div><div style="overflow:hidden"><code>/api/time?token={token}</code></div></div><div class="panel-body"><h4>Required Parameters</h4>
+<table>
+<thead>
+<tr><th>Name</th><th>Type</th></tr>
+</thead>
+<tbody>
+<tr><td>time</td><td>Float (ex : 2.5)</td></tr>
+<tr><td>date</td><td>Date (yyyy-mm-dd)</td></tr>
+<tr><td>task_id</td><td>Integer</td></tr>
+<tr><td>user_id</td><td>Integer</td></tr>
+</tbody>
+</table>
+</div><ul class="list-group"><li class="list-group-item bg-default"><strong>Parameters</strong></li><li class="list-group-item"><dl class="dl-horizontal"><dt>token</dt><dd><code>string</code>&nbsp;<span class="required">(required)</span>&nbsp;<p>Token of the logged user</p>
 </dd></dl></li></ul><ul class="list-group"><li class="list-group-item"><strong>Response&nbsp;&nbsp;<code>200</code></strong><a data-toggle="collapse" data-target="#4a2bf3258e06db996c330f11ce58ad18" class="pull-right collapsed"><span class="closed">Show</span><span class="open">Hide</span></a></li><li id="4a2bf3258e06db996c330f11ce58ad18" class="list-group-item panel-collapse collapse"><h5>Headers</h5><pre><code><span class="hljs-attribute">Content-Type</span>: <span class="hljs-string">application/json</span><br></code></pre><h5>Body</h5><pre><code>{
   "<span class="hljs-attribute">success</span>": <span class="hljs-value"><span class="hljs-literal">true</span></span>,
   "<span class="hljs-attribute">payload</span>": <span class="hljs-value">{

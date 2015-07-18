@@ -1073,6 +1073,15 @@ Times related resources of the **Sigma API**
         
 ### Store [POST]
 
+#### Required Parameters
+
+| Name          | Type                                                             |
+|---------------|------------------------------------------------------------------|
+| time          | Float (ex : 2.5)                                                 |
+| date          | Date (yyyy-mm-dd)                                                |
+| task_id       | Integer                                                          |
+| user_id       | Integer                                                          |
+
 + Response 200 (application/json)
         
         {

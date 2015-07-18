@@ -119,6 +119,17 @@ class ProjectController extends Controller {
 	{
 		$project = Project::find($id);
 
+		if(!$project)
+		{
+			return response()->json(
+				[
+					'success' => false,
+					'payload' => [],
+					'error' => 'The selected project doesn\'t exist.'
+				]
+			);
+		}
+
 		$project->fill($request->all());
 		$project->save();
 

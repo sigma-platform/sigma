@@ -56,7 +56,7 @@ You may disconnect a user using this action.
 # Group Projects
 Projects related resources of the **Sigma API**
 
-## Projects Collection [/api/project/user/{role}?token={token}]
+## Projects Collection For User [/api/project/user/{role}?token={token}]
 
 `/api/project/user/{role?}?token={token}`
 
@@ -104,6 +104,29 @@ Projects related resources of the **Sigma API**
                 }
             ]
         }
+        
+## Projects Collection [/api/project?token={token}]
+
+`/api/project?token={token}`
+        
+### Store [POST]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "message": "Project succesfuly created.",
+          "payload": {
+            "name": "Sigma 27",
+            "description": "27",
+            "project_group_id": "2",
+            "slug": "zouley",
+            "status": 0,
+            "updated_at": "2015-07-18 14:24:02",
+            "created_at": "2015-07-18 14:24:02",
+            "id": 4
+          }
+        }
 
 ## Project [/api/project/{id}?token={token}]
 
@@ -114,7 +137,7 @@ Projects related resources of the **Sigma API**
     + id (string) ... id of the project
     + token (string) ... Token of the logged user
 
-### ProjectShow [GET]
+### Show [GET]
 
 + Response 200 (application/json)
 
@@ -135,6 +158,36 @@ Projects related resources of the **Sigma API**
                         "project_id": 1
                     }
             }
+        }
+        
+### Update [PUT]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "message": "Project successfully modified.",
+          "payload": {
+            "id": 3,
+            "name": "Sigma zouley",
+            "description": "sigma client",
+            "slug": "sigma-client",
+            "status": 1,
+            "project_group_id": 2,
+            "created_at": "2015-04-04 17:04:00",
+            "updated_at": "2015-07-18 14:19:00",
+            "deleted_at": null
+          }
+        }
+        
+### Destroy [DELETE]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "message": "Project successfully deleted.",
+          "payload": []
         }
         
 # Group Versions

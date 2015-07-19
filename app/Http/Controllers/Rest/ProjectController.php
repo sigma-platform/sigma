@@ -219,4 +219,32 @@ class ProjectController extends Controller {
 				'payload' => []
 			]);
 	}
+
+	/**
+	 * Return the datas needed to buid the gantt diagram.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
+	public function gantt($id)
+	{
+		$project = Project::with('versions.tasks.user')->find($id)->toArray();
+
+		if(!$project)
+		{
+			return response()->json(
+				[
+					'success' => false,
+					'payload' => [],
+					'error' => 'The selected project doesn\'t exist.'
+				]
+			);
+		}
+
+		return response()->json(
+			[
+				'success' => true,
+				'payload' => $project['versions']
+			]);
+	}
 }

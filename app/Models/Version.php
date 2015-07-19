@@ -34,4 +34,15 @@ class Version extends Model {
 	{
 		return $this->belongsTo('App\Models\Project');
 	}
+
+	/**
+	 * Task relationship
+	 *
+	 * @return Task
+	 */
+	public function tasks()
+	{
+		return $this->hasMany('App\Models\Task');
+	}
+
 }

@@ -64,6 +64,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'token', 'namespace' => 'Rest']
 		Route::put('/project/{id}', 'ProjectController@update');
 		Route::delete('/project/{id}', 'ProjectController@destroy');
 		Route::put('/project/{id}/user', 'ProjectController@syncUserAccess');
+		Route::get('/project/{id}/gantt', 'ProjectController@gantt');
 
 		// Document
 		Route::get('/project/{projectId}/document', 'DocumentController@indexForProject');

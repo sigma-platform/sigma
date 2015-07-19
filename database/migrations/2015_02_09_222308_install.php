@@ -167,7 +167,7 @@ class Install extends Migration {
 		Schema::create('time', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->decimal('time', 4, 1);
+			$table->decimal('time', 5, 2);
 			$table->date('date');
 			$table->timestamps();
 		});

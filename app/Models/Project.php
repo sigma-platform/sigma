@@ -32,6 +32,17 @@ class Project extends Model {
 	}
 
 	/**
+	 * Version relationship
+	 *
+	 * @return Version
+	 */
+	public function versions()
+	{
+		return $this->hasMany('App\Models\Version');
+	}
+
+
+	/**
 	 * User relationship
 	 *
 	 * @return array

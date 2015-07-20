@@ -2,9 +2,31 @@
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\VersionFormRequest;
+use App\Models\Project;
 use App\Models\Version;
 
 class VersionController extends Controller {
+
+	public function indexForProject($id) {
+		$project = Project::find($id);
+
+		if(!$project)
+		{
+			return response()->json(
+				[
+					'success' => false,
+					'message' => 'The selected project doesn\'t exist.',
+					'payload' => []
+				]
+			);
+		}
+
+		return response()->json(
+			[
+				'success' => true,
+				'payload' => $project->versions
+			]);
+	}
 
 	public function show($versionId) {
 		$version = Version::find($versionId);

@@ -41,6 +41,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'token', 'namespace' => 'Rest']
 		Route::resource('time', 'TimeController', array('only' => array('show', 'store', 'update', 'destroy')));
 
 		// Version
+		Route::get('/project/{id}/version', 'VersionController@indexForProject');
 		Route::post('/version', 'VersionController@store');
 		Route::put('/version/{id}', 'VersionController@update');
 		Route::delete('/version/{id}', 'VersionController@destroy');

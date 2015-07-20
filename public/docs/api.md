@@ -558,9 +558,9 @@ Tasks related resources of the **Sigma API**
 
         { "success": false, "payload": [], "error": "Incorrect parameters."}
 
-## Tasks Collection For Project [/api/task/project/{projectId}?token={token}]
+## Tasks Collection For Project [/api/project/{projectId}/task?token={token}]
 
-`/api/task/project/{projectId}?token={token}`
+`/api/project/{projectId}/task?token={token}`
 
 + Parameters
     

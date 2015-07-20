@@ -193,6 +193,45 @@ Projects related resources of the **Sigma API**
 # Group Versions
 Versions related resources of the **Sigma API**
 
+## Versions Collection For Project [/api/project/{id}/version?token={token}]
+
+`/api/project/{id}/version?token={token}`
+
++ Parameters
+    
+    + id (string) ... id of the project
+    + token (string) ... Token of the logged user
+
+### ProjectVersionList [GET]
+
++ Response 200 (application/json)
+
+        {
+          "success": true,
+          "payload": [
+            {
+              "id": 1,
+              "label": "0.1",
+              "description": "Version 0.1",
+              "date_start": "2015-04-30",
+              "date_end": "2015-06-30",
+              "project_id": 1,
+              "created_at": "2015-04-04 16:53:43",
+              "updated_at": "2015-04-04 16:53:43"
+            },
+            {
+              "id": 2,
+              "label": "0.2",
+              "description": "Version 0.2",
+              "date_start": "2015-06-30",
+              "date_end": "2015-08-30",
+              "project_id": 1,
+              "created_at": "2015-04-04 16:53:43",
+              "updated_at": "2015-04-04 16:53:43"
+            }
+          ]
+        }
+
 ## Versions Collection [/api/version?token={token}]
 
 `/api/version?token={token}`

@@ -12,6 +12,9 @@ Route::group(['prefix' => 'api', 'middleware' => 'token', 'namespace' => 'Rest']
 	Route::get('/project/user/{role?}', 'ProjectController@indexForUser');
 	Route::get('/project/{id}', 'ProjectController@show');
 
+	// Project Group
+	Route::get('/project-group', 'ProjectGroupController@index');
+
 	// Task
 	Route::get('/project/{projectId}/task', 'TaskController@indexForUserWithProject');
 	Route::get('/version/{versionId}/task', 'TaskController@indexForUserWithVersion');

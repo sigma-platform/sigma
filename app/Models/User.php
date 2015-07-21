@@ -49,7 +49,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	public function projects()
 	{
-		return $this->with('project_group')->belongsToMany('App\Models\Project', 'user_project_role')->withPivot('role_id');
+		return $this->belongsToMany('App\Models\Project', 'user_project_role')->with('projectGroup')->withPivot('role_id');
 	}
 
 	/**
@@ -59,7 +59,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	public function managerProjects()
 	{
-		return $this->with('project_group')->belongsToMany('App\Models\Project', 'user_project_role')->wherePivot('role_id', '=', 3)->withPivot('role_id');
+		return $this-->belongsToMany('App\Models\Project', 'user_project_role')->with('projectGroup')->wherePivot('role_id', '=', 3)->withPivot('role_id');
 	}
 
 	/**
@@ -69,7 +69,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	public function devProjects()
 	{
-		return $this->with('project_group')->belongsToMany('App\Models\Project', 'user_project_role')->wherePivot('role_id', '=', 4)->withPivot('role_id');
+		return $this->belongsToMany('App\Models\Project', 'user_project_role')->with('projectGroup')->wherePivot('role_id', '=', 4)->withPivot('role_id');
 	}
 
 	/**
@@ -79,7 +79,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	public function clientProjects()
 	{
-		return $this->with('project_group')->belongsToMany('App\Models\Project', 'user_project_role')->wherePivot('role_id', '=', 5)->withPivot('role_id');
+		return $this->belongsToMany('App\Models\Project', 'user_project_role')->with('projectGroup')->wherePivot('role_id', '=', 5)->withPivot('role_id');
 	}
 
 	/**

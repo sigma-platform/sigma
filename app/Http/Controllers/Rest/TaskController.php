@@ -24,7 +24,7 @@ class TaskController extends Controller {
 		}
 
 		$versionsId = Version::where('project_id', '=', $projectId)->lists('id');
-		$tasks = Task::with('version', 'timeSpent')
+		$tasks = Task::with('version', 'user', 'timeSpent')
 			->leftJoin('version', 'task.version_id', '=', 'version.id')
 			->select('task.*')
 			->whereIn('task.version_id', $versionsId)
@@ -71,7 +71,7 @@ class TaskController extends Controller {
 
 	public function show($taskId)
 	{
-		$task = Task::with('timeSpent')->find($taskId);
+		$task = Task::with('version', 'user', 'timeSpent')->find($taskId);
 
 		if(!$task)
 		{
@@ -99,7 +99,7 @@ class TaskController extends Controller {
 			[
 				'success' => true,
 				'message' => 'Task successfully added.',
-				'payload' => $task->toArray()
+				'payload' => Task::with('version', 'user', 'timeSpent')->find($task->id)
 			]);
 	}
 
@@ -111,7 +111,7 @@ class TaskController extends Controller {
 			[
 				'success' => true,
 				'message' => 'Version successfully updated.',
-				'payload' => Task::find($taskId)->toArray()
+				'payload' => Task::with('version', 'user', 'timeSpent')->find($taskId)->toArray()
 			]
 		);
 	}

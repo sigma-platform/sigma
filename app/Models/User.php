@@ -59,7 +59,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	public function managerProjects()
 	{
-		return $this-->belongsToMany('App\Models\Project', 'user_project_role')->with('projectGroup')->wherePivot('role_id', '=', 3)->withPivot('role_id');
+		return $this->belongsToMany('App\Models\Project', 'user_project_role')->with('projectGroup')->wherePivot('role_id', '=', 3)->withPivot('role_id');
 	}
 
 	/**

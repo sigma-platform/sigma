@@ -77,7 +77,7 @@ class ProjectController extends Controller {
 			[
 				'success' => true,
 				'message' => 'Project succesfuly created.',
-				'payload' => $project->toArray()
+				'payload' => Project::with('projectGroup')->find($project->id)->toArray()
 			]);
 	}
 
@@ -137,7 +137,7 @@ class ProjectController extends Controller {
 			[
 				'success' => true,
 				'message' => 'Project successfully modified.',
-				'payload' => $project->toArray()
+				'payload' => Project::with('projectGroup')->find($id)->toArray()
 			]);
 	}
 

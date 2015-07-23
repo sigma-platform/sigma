@@ -16,7 +16,7 @@ class UserController extends Controller {
 	}
 
 	public function indexForProject($projectId) {
-		$project = Project::with('users')->find($projectId);
+		$project = Project::with('users.projects')->find($projectId);
 
 		if(!$project)
 		{
@@ -37,7 +37,7 @@ class UserController extends Controller {
 	}
 
 	public function show($userId) {
-		$user = User::find($userId);
+		$user = User::with('projects')->find($userId);
 
 		if(!$user)
 		{
@@ -64,7 +64,7 @@ class UserController extends Controller {
 			[
 				'success' => true,
 				'message' => 'User successfully added.',
-				'payload' => $user->toArray()
+				'payload' => User::with('projects')->find($user->id)
 			]);
 	}
 
@@ -75,7 +75,7 @@ class UserController extends Controller {
 			[
 				'success' => true,
 				'message' => 'User successfully updated.',
-				'payload' => User::find($userId)->toArray()
+				'payload' => User::with('projects')->find($userId)->toArray()
 			]
 		);
 	}

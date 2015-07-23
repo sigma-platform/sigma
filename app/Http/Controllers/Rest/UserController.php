@@ -11,7 +11,7 @@ class UserController extends Controller {
 		return response()->json(
 			[
 				'success' => true,
-				'payload' => User::with('projects')->all()->toArray()
+				'payload' => User::with('projects')->get()->toArray()
 			]);
 	}
 

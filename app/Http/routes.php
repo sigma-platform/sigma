@@ -45,9 +45,6 @@ Route::group(['prefix' => 'api', 'middleware' => 'token', 'namespace' => 'Rest']
 
 		// Version
 		Route::get('/project/{id}/version', 'VersionController@indexForProject');
-		Route::post('/version', 'VersionController@store');
-		Route::put('/version/{id}', 'VersionController@update');
-		Route::delete('/version/{id}', 'VersionController@destroy');
 	});
 
 	Route::group(['middleware' => 'is', 'role' => 'manager'], function()
@@ -70,6 +67,11 @@ Route::group(['prefix' => 'api', 'middleware' => 'token', 'namespace' => 'Rest']
 		Route::delete('/project/{id}', 'ProjectController@destroy');
 		Route::put('/project/{id}/user', 'ProjectController@syncUserAccess');
 		Route::get('/project/{id}/gantt', 'ProjectController@gantt');
+
+		// Version
+		Route::post('/version', 'VersionController@store');
+		Route::put('/version/{id}', 'VersionController@update');
+		Route::delete('/version/{id}', 'VersionController@destroy');
 
 		// Document
 		Route::get('/project/{projectId}/document', 'DocumentController@indexForProject');

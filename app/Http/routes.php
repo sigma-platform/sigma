@@ -58,6 +58,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'token', 'namespace' => 'Rest']
 		Route::delete('/task/{id}', 'TaskController@destroy');
 
 		// User
+		Route::get('/user', 'UserController@index');
 		Route::get('/project/{projectId}/user', 'UserController@indexForProject');
 		Route::post('/user', 'UserController@store');
 		Route::put('/user/{id}', 'UserController@update');

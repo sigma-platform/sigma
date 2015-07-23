@@ -7,6 +7,14 @@ use App\Models\User;
 
 class UserController extends Controller {
 
+	public function index() {
+		return response()->json(
+			[
+				'success' => true,
+				'payload' => User::with('projects')->all()->toArray()
+			]);
+	}
+
 	public function indexForProject($projectId) {
 		$project = Project::with('users')->find($projectId);
 
